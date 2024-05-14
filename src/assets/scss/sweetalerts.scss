@@ -1,0 +1,23 @@
+@import "@/assets/scss/variables/_variables.scss";
+
+.confirm-button-sweet {
+  background-color: $colors-palette2 !important;
+  color: #FFF;
+  margin-right: 10px;
+  box-shadow: 0 0 0 0 rgb(112 102 224 / 50%) !important;
+  transition: .3s background-color;
+}
+
+.confirm-button-sweet:hover {
+  background-color: $colors-palette2-hover !important;
+  color: #FFF;
+}
+
+.swal2-icon.swal2-warning {
+  border-color: #ff9f43 !important;
+  color: #ff9f43 !important;
+}
+
+.swal2-popup {
+  background: $bg-200;
+}

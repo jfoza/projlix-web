@@ -1,0 +1,110 @@
+@import '~@core/scss/base/pages/page-auth.scss';
+@import "@/assets/scss/variables/_variables.scss";
+.brand-logo {
+  svg {
+    height: 28px;
+    width: 40.95px;
+  }
+}
+html[dir='rtl'] {
+  svg.feather {
+    transform: rotate(180deg);
+  }
+}
+
+// Custom
+.btn-create-account {
+  display: block;
+}
+
+.btn-icon-create-account {
+  display: none;
+}
+
+.login-card-title {
+  color: $bg-100 !important;
+  font-weight: bold;
+}
+
+.nav-login {
+  height: 100px;
+  padding: 20px 30px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.card-overlay {
+  width: 480px;
+  display: flex;
+  justify-content: center;
+}
+
+.card-auth-admin {
+  display: flex;
+  flex-direction: column;
+  margin-top: 30px;
+  padding: 30px 60px;
+  background-color: #FFF;
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.06);
+  border-radius: 6px;
+}
+
+.create-account-title {
+  margin-right: 1rem;
+  margin-bottom: 0;
+  display: block;
+}
+
+.dark-layout .divider .divider-text::before, [dir] .dark-layout .divider .divider-text::after {
+  border-color: #d8d6de !important;
+}
+
+.dark-layout input.form-control:not(:focus), .dark-layout .custom-file-label:not(:focus), .dark-layout textarea.form-control:not(:focus) {
+  border-color: #d8d6de !important;
+}
+
+.dark-layout .input-group .input-group-text {
+  border-color: #d8d6de !important;
+}
+
+.dark-layout .divider .divider-text {
+  color: #5e5873 !important;
+}
+
+.dark-layout label {
+  color: #5e5873 !important;
+}
+
+.dark-layout .input-group:focus-within .form-control, .dark-layout .input-group:focus-within .input-group-text {
+  border-color: #d8d6de !important;
+  box-shadow: none;
+}
+
+.dark-layout input.form-control, .dark-layout .custom-file-label, .dark-layout textarea.form-control {
+  color: #5e5873 !important;
+}
+
+@media (width < 545px) {
+  .create-account-title {
+    display: none;
+  }
+}
+
+@media (width < 430px) {
+  .card-auth-admin {
+    width: 480px;
+    margin-top: 30px;
+    padding: 30px;
+  }
+}
+
+@media (width < 350px) {
+  .btn-create-account {
+    display: none;
+  }
+
+  .btn-icon-create-account {
+    display: block;
+  }
+}

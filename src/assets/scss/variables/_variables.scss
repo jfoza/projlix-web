@@ -1,0 +1,58 @@
+//  ================================================================================================
+//  ? TIP:  It is recommended to use this file for overriding bootstrap variables.
+//  ================================================================================================
+
+$font-weight-bolder: 600 !default;
+
+$danger: #dc3545 !default;
+
+$medium: 1200px;
+$small: 575px;
+$very-small: 348px;
+
+$product-card-width: 240px;
+
+$custom-dark: #454545;
+$custom-orange: rgba(245,193,57);
+$black: #000000;
+$black-hover: #100f0f;
+$green: #39FF14;
+$green-hover: #30DE0FFF;
+$header-table: rgba(245,193,57);
+$text-base-color: #454545;
+$placeholder-color: #B9B9C3;
+$white: #fff;
+$placeholder-moz-color: #828288;
+$placeholder-color: #B9B9C3;
+$custom-green: #28c76f;
+$custom-red: #EA5455;
+$custom-warning: #FF9110;
+
+$colors-palette1: #0B132B;
+$colors-palette2: #1C2541;
+$colors-palette2-hover: #141b31;
+$colors-palette3: #3A506B;
+$colors-palette4: #5BC0BE;
+$colors-palette5: #6FFFE9;
+
+$colors-palette2-opacity: rgba(28,37,65, 0.1);
+
+$theme-colors: (
+  "colors-palette1": $colors-palette1,
+  "colors-palette2": $colors-palette2,
+  "colors-palette3": $colors-palette3,
+  "colors-palette4": $colors-palette4,
+  "colors-palette5": $colors-palette5,
+);
+
+$primary-100: #278350;
+$primary-100-hover: #1e5938;
+$primary-200: #61bc84;
+$primary-300: #c6ffe6;
+$accent-100: #8FBC8F;
+$accent-200: #345e37;
+$text-100: #FFFFFF;
+$text-200: #e0e0e0;
+$bg-100: #23272BFF;
+$bg-200: #28343DFF;
+$bg-300: #454545;

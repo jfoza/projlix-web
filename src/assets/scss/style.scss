@@ -1,0 +1,169 @@
+@import './variables/variables';
+
+* {
+  scrollbar-width: thin;
+  scrollbar-color: #EFEFEF transparent;
+}
+
+*::-webkit-scrollbar {
+  width: 5px;
+}
+
+*::-webkit-scrollbar:horizontal {
+  height: 5px;
+}
+
+*::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+*::-webkit-scrollbar-thumb {
+  background-color: #EFEFEF;
+  border-radius: 5px;
+}
+
+body.dark-layout {
+  background-color: $bg-100 !important;
+}
+
+.dark-layout .main-menu {
+  background-color: $bg-200 !important;
+}
+
+.dark-layout .main-menu-content .navigation-main {
+  background-color: $bg-200 !important;
+}
+
+.header-navbar.navbar-shadow {
+  box-shadow: none !important;
+}
+
+.dark-layout .main-menu-content .navigation-main .nav-item .menu-content {
+  background-color: $bg-200 !important;
+}
+
+.dark-layout .card {
+  background-color: $bg-200 !important;
+}
+
+.dark-layout input.form-control, .dark-layout .custom-file-label, .dark-layout textarea.form-control {
+  background-color: transparent !important;
+}
+
+.dark-layout .vs__dropdown-toggle {
+  background: transparent !important;
+}
+
+.dark-layout .input-group .input-group-text {
+  background: transparent !important;
+}
+
+.main-menu.menu-light .navigation > li.active > a {
+  background: linear-gradient(118deg, $primary-100, rgba(97, 188, 132, 0.7)) !important;
+  box-shadow: none !important;
+
+}
+
+.main-menu.menu-light .navigation > li ul .active {
+  background: linear-gradient(118deg, $primary-100, rgba(97, 188, 132, 0.7)) !important;
+  box-shadow: none !important;
+}
+
+.dark-layout .main-menu-content .navigation-main .nav-item.open > a {
+  background-color: $bg-100 !important;
+}
+
+.dark-layout .menu-collapsed .main-menu:not(.expanded) .navigation-main li.active > a {
+  background: $bg-100 !important;
+}
+
+.b-avatar.badge-light-primary {
+  background-color: $bg-100 !important;
+}
+
+.vertical-layout.vertical-menu-modern.menu-expanded .main-menu {
+  width: 320px !important;
+}
+
+.header-navbar.floating-nav {
+  width: calc(100vw - (100vw - 100%)) !important;
+  margin: 0 !important;
+  border-radius: 0 !important;
+}
+
+.main-menu.menu-shadow {
+  box-shadow: none !important;
+}
+
+.button-form {
+  background-color: $primary-100 !important;
+  color: $white;
+  transition: .3s background-color;
+}
+
+.button-form:hover {
+  background-color: $primary-100-hover;
+  color: $white;
+}
+
+.btn-outline-form {
+  background-color: transparent;
+  border: solid 1px linear-gradient(118deg, $primary-100, rgba(3, 159, 62, 0.7));
+  color: linear-gradient(118deg, $primary-100, rgba(3, 159, 62, 0.7)) !important;
+  transition: .3s background-color;
+}
+
+.btn-outline-form:hover {
+  background-color: transparent;
+  border: solid 1px linear-gradient(118deg, $primary-100, rgba(3, 159, 62, 0.7));
+  color: linear-gradient(118deg, $primary-100, rgba(3, 159, 62, 0.7)) !important;
+  text-decoration: underline;
+}
+
+.custom-alert {
+  display: flex;
+  padding: 0.71rem 1rem;
+  justify-content: space-between;
+}
+
+.wizard-tab-content {
+  width: 100% !important;
+}
+
+.main-menu .navbar-header .navbar-brand .brand-logo img {
+  max-width: 150px;
+}
+
+.button-config {
+  margin-top: .4rem;
+}
+
+.spinner-area {
+  height: 100px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.main-menu .navbar-header .navbar-brand {
+  margin-top: .5rem;
+}
+
+.main-menu.menu-light .navigation {
+  margin-top: 1.3rem;
+}
+
+.p-card-form {
+  padding: 3rem 2rem;
+}
+
+.ql-editor.ql-blank::before {
+  color: #b4b7bd !important;
+}
+
+@media(max-width: 576px) {
+  .button-config {
+    width: 100%;
+    margin-bottom: 1rem;
+  }
+}

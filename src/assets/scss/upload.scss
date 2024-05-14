@@ -1,0 +1,95 @@
+@import '@/assets/scss/variables/_variables.scss';
+
+.file-upload {
+  display: flex;
+  align-items: center;
+  position: relative;
+}
+
+.box {
+  height: 130px;
+  width: 130px;
+  position: relative;
+  border: 2px solid $colors-palette2;
+  border-radius: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: $colors-palette2;
+
+  .image-preview {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 5px;
+    pointer-events: none;
+    position: absolute;
+  }
+
+  img {
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+    object-position: center;
+  }
+}
+
+.input-file {
+  height: .1px;
+  opacity: 0;
+  overflow: hidden;
+  position: absolute;
+  width: .1px;
+  z-index: -1;
+}
+
+label {
+  height: 38px;
+  width: 58px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: $white;
+  background-color: $colors-palette2;
+  font-weight: 400;
+  text-align: center;
+  white-space: nowrap;
+  vertical-align: middle;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  border: 1px solid transparent;
+  font-size: 1rem;
+  border-radius: 0.358rem;
+  margin-right: .8rem;
+  transition: 3s color;
+}
+
+.custom-btn-remove {
+  height: 38px;
+  width: 58px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+label:hover,
+label:focus {
+  border-color: $colors-palette2;
+  cursor: pointer;
+}
+
+@media(max-width: 360px) {
+  .file-upload {
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+  }
+
+  .image-area {
+    margin-bottom: 1.5rem;
+  }
+}
