@@ -70,9 +70,8 @@ import {
 } from 'bootstrap-vue'
 import PageHeader from '@/views/components/custom/PageHeader.vue'
 import moment from 'moment'
-import { getAllProjects } from '@core/utils/requests/projects'
-import Project from '@/views/pages/projects/Project.vue'
-import Form from '@/views/pages/projects/Form.vue'
+import Project from '@/views/pages/projects/components/Project.vue'
+import Form from '@/views/pages/projects/components/Form.vue'
 
 export default {
   components: {
@@ -133,26 +132,10 @@ export default {
       await this.$store.dispatch('projects/findAll')
     },
 
-    redirectUpdatePage(project) {
-      this.$store.commit('chooseData/SET_CHOOSE_PROJECT', project)
-
-      this.$router.replace({ name: 'update-project-form' })
-    },
-
     handleShowForm() {
       this.$store.commit('projects/setMode', 'insert')
 
       this.$store.commit('projects/setShowModalForm', true)
-    },
-
-    clearFilters() {
-
-    },
-
-    setParams() {
-      return {
-
-      }
     },
   },
 }

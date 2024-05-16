@@ -42,7 +42,6 @@ export const warningInfoMessage = (title, message, messageButton) => Swal.fire({
 
 export const successMessageAction = message => new Promise(resolve => {
   Swal.fire({
-    icon: 'success',
     html: `${message || ''}`,
     icon: 'success',
     confirmButtonText: 'Ok',

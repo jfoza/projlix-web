@@ -169,20 +169,20 @@ import {
   BForm,
   BRow,
   BCol,
-  BFormInput,
   BLink,
   BModal,
 } from 'bootstrap-vue'
 import { quillEditor } from 'vue-quill-editor'
 import moment from 'moment'
-import { confirmAction, successMessage, warningMessage } from '@/libs/alerts/sweetalerts'
+import { confirmAction } from '@/libs/alerts/sweetalerts'
 import { messages } from '@core/utils/validations/messages'
 import Post from '@/views/components/custom/Post.vue'
 import {
   createNote, getAllNotes, removeNote, showNoteId, updateNote,
-} from '@core/utils/requests/notes'
+} from '@/views/pages/notes/api'
 import ButtonForm from '@/views/components/custom/buttons/ButtonForm.vue'
 import ButtonOutlineForm from '@/views/components/custom/buttons/ButtonOutlineForm.vue'
+import { toastSuccess, toastWarning } from '@/libs/alerts/toast'
 
 export default {
   components: {
@@ -197,7 +197,6 @@ export default {
     BForm,
     BRow,
     BCol,
-    BFormInput,
     BLink,
     BModal,
   },
@@ -321,7 +320,7 @@ export default {
           }
         })
         .catch(() => {
-          warningMessage(messages.impossible)
+          toastWarning(messages.impossible)
         })
 
       this.loading = false
@@ -346,7 +345,7 @@ export default {
           if (response.status === 200) {
             this.clear()
             this.findAll()
-            successMessage(messages.successSave)
+            toastSuccess(messages.successSave)
           }
         })
         .catch(error => {
@@ -363,7 +362,7 @@ export default {
         .then(response => {
           if (response.status === 200) {
             this.showModal = false
-            successMessage(messages.successSave)
+            toastSuccess(messages.successSave)
             this.findAll()
             this.clear()
           }
@@ -381,7 +380,7 @@ export default {
       await removeNote(id)
         .then(response => {
           if (response.status === 204) {
-            successMessage(messages.successDelete)
+            toastSuccess(messages.successDelete)
             this.findAll()
           }
         })
@@ -389,10 +388,10 @@ export default {
           const errors = error.response.status === 400 || error.response.status === 404
 
           if (errors) {
-            return warningMessage(error.response.data.error)
+            return toastWarning(error.response.data.error)
           }
 
-          return warningMessage(messages.impossible)
+          return toastWarning(messages.impossible)
         })
 
       this.loadingTable = false
@@ -402,10 +401,10 @@ export default {
       const errors = response.status === 400 || response.status === 404
 
       if (errors) {
-        return warningMessage(response.data.error)
+        return toastWarning(response.data.error)
       }
 
-      return warningMessage(messages.impossible)
+      return toastWarning(messages.impossible)
     },
 
     clear() {

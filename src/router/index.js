@@ -5,11 +5,11 @@ import VueRouter from 'vue-router'
 import { canNavigate } from '@/libs/acl/routeProtection'
 import { getHomeRouteForLoggedInUser, getUserData, isUserLoggedIn } from '@/auth/utils'
 import adminUsers from '@/views/pages/admin-users/routes'
-import auth from './routes/auth'
-import misc from './routes/misc'
-import home from './routes/home'
-import projects from './routes/projects'
-import notes from './routes/notes'
+import auth from '@/views/pages/authentication/routes'
+import notes from '@/views/pages/notes/routes'
+import projects from '@/views/pages/projects/routes'
+import misc from '@/views/pages/miscellaneous/routes'
+import home from '@/views/home/routes'
 
 Vue.use(VueRouter)
 

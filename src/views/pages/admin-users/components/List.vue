@@ -262,12 +262,11 @@ import {
   BTable,
   BSpinner,
   BAlert,
-  BLink,
 } from 'bootstrap-vue'
 import PageHeader from '@/views/components/custom/PageHeader'
 import { ValidationObserver, ValidationProvider } from 'vee-validate'
 import { required, email } from '@validations'
-import { getAdminUsers } from '@core/utils/requests/users'
+import { getAdminUsers } from '@/views/pages/admin-users/api'
 import moment from 'moment'
 import vSelect from 'vue-select'
 import CustomPagination from '@/views/components/custom/CustomPagination'
@@ -292,7 +291,6 @@ export default {
     BTable,
     BSpinner,
     BAlert,
-    BLink,
     StatusField,
     CustomPagination,
     ButtonIcon,
@@ -411,8 +409,6 @@ export default {
     },
 
     handleOrderTable(context) {
-      console.log(context)
-
       this.table.tableColumnNameOrder = context.sortBy
       this.table.tableOrder = context.sortDesc ? 'desc' : 'asc'
 

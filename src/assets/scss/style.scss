@@ -50,6 +50,11 @@ body.dark-layout {
   background-color: transparent !important;
 }
 
+.main-menu.menu-light .navigation > li.open:not(.menu-item-closing) > a, [dir] .main-menu.menu-light .navigation > li.sidebar-group-active > a {
+  background: $bg-200 !important;
+  border-radius: 6px;
+}
+
 .dark-layout .vs__dropdown-toggle {
   background: transparent !important;
 }

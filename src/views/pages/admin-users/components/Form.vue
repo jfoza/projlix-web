@@ -147,7 +147,7 @@
             </ButtonForm>
 
             <ButtonOutlineForm
-              @click="cancel"
+              @action="cancel"
             >
               <feather-icon
                 icon="XIcon"
@@ -179,14 +179,13 @@ import {
   confirmed,
   noSpecialChars,
 } from '@validations'
-import { createUser, updateUser } from '@core/utils/requests/users'
+import { createUser, updateUser } from '@/views/pages/admin-users/api'
 import { statusForm } from '@core/utils/statusForm'
-import { successMessage, warningMessage } from '@/libs/alerts/sweetalerts'
 import { formActions } from '@core/utils/formActions'
 import { messages } from '@core/utils/validations/messages'
-import ToastificationContent from '@core/components/toastification/ToastificationContent.vue'
 import ButtonForm from '@/views/components/custom/buttons/ButtonForm.vue'
 import ButtonOutlineForm from '@/views/components/custom/buttons/ButtonOutlineForm.vue'
+import { toastSuccess, toastWarning } from '@/libs/alerts/toast'
 
 export default {
   components: {
@@ -292,11 +291,7 @@ export default {
           if (response.status === 201) {
             this.clear()
 
-            this.handleShowMessage(
-              messages.successSave,
-              'CheckIcon',
-              'success',
-            )
+            toastSuccess(messages.successSave)
           }
         })
         .catch(error => {
@@ -323,11 +318,7 @@ export default {
           if (response.status === 200) {
             this.clear()
 
-            this.handleShowMessage(
-              messages.successSave,
-              'CheckIcon',
-              'success',
-            )
+            toastSuccess(messages.successSave)
           }
         })
         .catch(error => {
@@ -337,26 +328,14 @@ export default {
       this.setLoading(false)
     },
 
-    handleShowMessage(title, icon, variant) {
-      this.$toast({
-        component: ToastificationContent,
-        props: {
-          title,
-          icon,
-          text: '',
-          variant,
-        },
-      })
-    },
-
     handleError(response) {
       const errors = response.status === 400 || response.status === 404
 
       if (errors) {
-        return warningMessage(response.data.error)
+        return toastWarning(response.data.error)
       }
 
-      return warningMessage(messages.impossible)
+      return toastWarning(messages.impossible)
     },
 
     setLoading(loading) {
@@ -364,16 +343,7 @@ export default {
     },
 
     cancel() {
-      if (this.getMode === this.formActions.insertAction) {
-        this.clear()
-      } else {
-        this.$router.replace({
-          name: 'admin-users',
-          params: {
-            dispatchList: true,
-          },
-        })
-      }
+      this.clear()
     },
 
     clear() {

@@ -1,6 +1,5 @@
 /* eslint-disable no-shadow */
-import api from '@/libs/api'
-import { getAllProjects, showProjectId } from '@core/utils/requests/projects'
+import { getAllProjects, showProjectId } from '@/views/pages/projects/api/projects'
 
 const state = {
   showModalForm: false,

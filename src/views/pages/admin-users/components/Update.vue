@@ -28,7 +28,7 @@
 
 // eslint-disable-next-line import/extensions
 import PageHeader from '@/views/components/custom/PageHeader'
-import { getUserId } from '@core/utils/requests/users'
+import { getUserId } from '@/views/pages/admin-users/api'
 import { warningMessage } from '@/libs/alerts/sweetalerts'
 import { formActions } from '@core/utils/formActions'
 import { messages } from '@core/utils/validations/messages'

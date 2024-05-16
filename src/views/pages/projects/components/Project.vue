@@ -90,10 +90,11 @@
 
 import { BAvatar, BDropdown, BDropdownItem } from 'bootstrap-vue'
 import ButtonIcon from '@/views/components/custom/buttons/ButtonIcon.vue'
-import { removeProject } from '@core/utils/requests/projects'
+import { removeProject } from '@/views/pages/projects/api/projects'
 import { messages } from '@core/utils/validations/messages'
 import { confirmAction } from '@/libs/alerts/sweetalerts'
 import ToastificationContent from '@core/components/toastification/ToastificationContent.vue'
+import { toastSuccess, toastWarning } from '@/libs/alerts/toast'
 
 export default {
 
@@ -163,44 +164,20 @@ export default {
           if (response.status === 204) {
             this.findAll()
 
-            this.handleShowMessage(
-              messages.successDelete,
-              'CheckIcon',
-              'success',
-            )
+            toastSuccess(messages.successDelete)
           }
         })
         .catch(error => {
           const errors = error.response.status === 400 || error.response.status === 404
 
           if (errors) {
-            return this.handleShowMessage(
-              error.response.data.error,
-              'AlertTriangleIcon',
-              'warning',
-            )
+            return toastWarning(error.response.data.error)
           }
 
-          return this.handleShowMessage(
-            messages.impossible,
-            'AlertTriangleIcon',
-            'warning',
-          )
+          return toastWarning(messages.impossible)
         })
 
       this.$store.commit('projects/setLoading', false)
-    },
-
-    handleShowMessage(title, icon, variant) {
-      this.$toast({
-        component: ToastificationContent,
-        props: {
-          title,
-          icon,
-          text: '',
-          variant,
-        },
-      })
     },
   },
 }

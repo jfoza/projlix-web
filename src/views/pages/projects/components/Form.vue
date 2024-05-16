@@ -95,10 +95,10 @@ import {
   required,
 } from '@validations'
 import { messages } from '@core/utils/validations/messages'
-import { createProject, updateProject } from '@core/utils/requests/projects'
-import ToastificationContent from '@core/components/toastification/ToastificationContent.vue'
+import { createProject, updateProject } from '@/views/pages/projects/api/projects'
 import ButtonForm from '@/views/components/custom/buttons/ButtonForm.vue'
 import ButtonOutlineForm from '@/views/components/custom/buttons/ButtonOutlineForm.vue'
+import { toastSuccess, toastWarning } from '@/libs/alerts/toast'
 
 export default {
   components: {
@@ -197,11 +197,7 @@ export default {
           if (response.status === 200) {
             this.clear()
             this.findAll()
-            this.handleShowMessage(
-              messages.successSave,
-              'CheckIcon',
-              'success',
-            )
+            toastSuccess(messages.successSave)
           }
         })
         .catch(error => {
@@ -226,11 +222,7 @@ export default {
           if (response.status === 200) {
             this.clear()
             this.findAll()
-            this.handleShowMessage(
-              messages.successSave,
-              'CheckIcon',
-              'success',
-            )
+            toastSuccess(messages.successSave)
           }
         })
         .catch(error => {
@@ -240,34 +232,14 @@ export default {
       this.$store.commit('projects/setLoading', false)
     },
 
-    handleShowMessage(title, icon, variant) {
-      this.$toast({
-        component: ToastificationContent,
-        props: {
-          title,
-          icon,
-          text: '',
-          variant,
-        },
-      })
-    },
-
     handleError(response) {
       const errors = response.status === 400 || response.status === 404
 
       if (errors) {
-        return this.handleShowMessage(
-          response.data.error,
-          'AlertTriangleIcon',
-          'warning',
-        )
+        return toastWarning(response.data.error)
       }
 
-      return this.handleShowMessage(
-        messages.impossible,
-        'AlertTriangleIcon',
-        'warning',
-      )
+      return toastWarning(messages.impossible)
     },
 
     cancel() {
