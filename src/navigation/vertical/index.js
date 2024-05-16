@@ -4,6 +4,7 @@ import positions from './menus/positions'
 import persons from './menus/persons'
 import notes from './menus/notes'
 import meetings from './menus/meetings'
+import adminUsers from './menus/admins'
 
 export default [
   ...home,
@@ -12,4 +13,5 @@ export default [
   ...persons,
   ...meetings,
   ...notes,
+  ...adminUsers,
 ]
