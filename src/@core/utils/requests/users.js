@@ -23,17 +23,6 @@ export const getUserId = id => new Promise((resolve, reject) => {
     })
 })
 
-export const getProfiles = () => new Promise((resolve, reject) => {
-  axiosIns
-    .get(apiRoutes.profiles)
-    .then(response => {
-      resolve(response)
-    })
-    .catch(error => {
-      reject(error)
-    })
-})
-
 export const createUser = form => new Promise((resolve, reject) => {
   axiosIns
     .post(apiRoutes.adminUsers, form)

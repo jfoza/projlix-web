@@ -89,8 +89,8 @@
 <script>
 
 import { BAvatar, BDropdown, BDropdownItem } from 'bootstrap-vue'
-import ButtonIcon from '@/views/components/custom/ButtonIcon.vue'
-import { removeProject, showProjectId } from '@core/utils/requests/projects'
+import ButtonIcon from '@/views/components/custom/buttons/ButtonIcon.vue'
+import { removeProject } from '@core/utils/requests/projects'
 import { messages } from '@core/utils/validations/messages'
 import { confirmAction } from '@/libs/alerts/sweetalerts'
 import ToastificationContent from '@core/components/toastification/ToastificationContent.vue'

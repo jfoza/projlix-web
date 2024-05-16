@@ -1,28 +1,19 @@
 import { subjects, actions } from '@/libs/acl/rules'
-import usersModuleRouter from '@/views/modules/users/routes'
 
 export default [
   {
-    title: 'Início',
-    icon: 'HomeIcon',
-    route: usersModuleRouter.home.name,
-    resource: subjects.USERS_MODULE,
-    action: actions.VIEW,
-  },
-
-  {
-    title: 'Gerenciar usuários',
+    title: 'Administrativo',
     icon: 'UsersIcon',
     children: [
       {
         title: 'Cadastrar novo',
-        route: usersModuleRouter.usersInsert.name,
+        route: 'admin-users-insert',
         resource: subjects.ADMIN_USERS,
         action: actions.INSERT,
       },
       {
         title: 'Ver usuários',
-        route: usersModuleRouter.usersList.name,
+        route: 'admin-users',
         resource: subjects.ADMIN_USERS,
         action: actions.VIEW,
       },

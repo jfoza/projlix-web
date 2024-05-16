@@ -95,31 +95,6 @@ body.dark-layout {
   box-shadow: none !important;
 }
 
-.button-form {
-  background-color: $primary-100 !important;
-  color: $white;
-  transition: .3s background-color;
-}
-
-.button-form:hover {
-  background-color: $primary-100-hover;
-  color: $white;
-}
-
-.btn-outline-form {
-  background-color: transparent;
-  border: solid 1px linear-gradient(118deg, $primary-100, rgba(3, 159, 62, 0.7));
-  color: linear-gradient(118deg, $primary-100, rgba(3, 159, 62, 0.7)) !important;
-  transition: .3s background-color;
-}
-
-.btn-outline-form:hover {
-  background-color: transparent;
-  border: solid 1px linear-gradient(118deg, $primary-100, rgba(3, 159, 62, 0.7));
-  color: linear-gradient(118deg, $primary-100, rgba(3, 159, 62, 0.7)) !important;
-  text-decoration: underline;
-}
-
 .custom-alert {
   display: flex;
   padding: 0.71rem 1rem;

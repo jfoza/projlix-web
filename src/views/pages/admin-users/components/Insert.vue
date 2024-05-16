@@ -5,10 +5,19 @@
       :link-items="linkItems"
     />
 
+    <div
+      v-if="loading"
+      class="spinner-area"
+    >
+      <b-spinner
+        variant="custom"
+        label="Loading..."
+      />
+    </div>
+
     <Form
       :mode="formActions.insertAction"
-      :form-data="form"
-      @clear="clearForm"
+      @setLoading="setLoading"
     />
   </div>
 </template>
@@ -18,10 +27,12 @@
 // eslint-disable-next-line import/extensions
 import PageHeader from '@/views/components/custom/PageHeader'
 import { formActions } from '@core/utils/formActions'
+import { BSpinner } from 'bootstrap-vue'
 import Form from './Form.vue'
 
 export default {
   components: {
+    BSpinner,
     PageHeader,
     Form,
   },
@@ -31,7 +42,7 @@ export default {
       linkItems: [
         {
           name: 'Gerenciar Usuários',
-          routeName: '',
+          routeName: 'admin-users',
         },
         {
           name: 'Cadastrar Novo',
@@ -41,34 +52,18 @@ export default {
 
       formActions,
 
-      form: {
-        name: '',
-        email: '',
-        password: '',
-        passwordConfirmation: '',
-        profile: null,
-      },
+      loading: false,
     }
   },
 
+  mounted() {
+    this.$store.commit('adminUsers/clearFormData')
+  },
+
   methods: {
-    clearForm() {
-      this.form = {
-        name: '',
-        email: '',
-        password: '',
-        passwordConfirmation: '',
-        profile: null,
-        active: {
-          boolValue: true,
-          description: 'Ativo',
-        },
-      }
+    setLoading(loading) {
+      this.loading = loading
     },
   },
 }
 </script>
-
-<style lang="scss" scoped>
-
-</style>

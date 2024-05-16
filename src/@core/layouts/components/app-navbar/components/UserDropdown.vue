@@ -99,7 +99,7 @@ export default {
     redirectMyAccount() {
       const { id } = getUserData()
 
-      this.$store.commit('chooseData/SET_CHOOSE_USER', id)
+      this.$store.commit('adminUsers/setChooseAdminUser', id)
 
       this.$router.replace({ name: 'update-user-form' })
     },

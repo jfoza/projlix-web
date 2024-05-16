@@ -24,7 +24,7 @@
 <script>
 /* eslint-disable import/extensions */
 import CustomMisc from '@/views/components/custom/CustomMisc'
-import LoadButton from '@/views/components/custom/LoadButton'
+import LoadButton from "@/views/components/custom/buttons/LoadButton.vue"
 import { LockIcon } from 'vue-feather-icons'
 import {
   clearStore, logoutUserRedirectToLogin, setLoggedUserData,

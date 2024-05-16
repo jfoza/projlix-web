@@ -61,21 +61,18 @@
           cols="12"
           class="mt-3 text-right"
         >
-          <button
-            type="button"
-            class="btn btn-outline-primary button-custom-size  mr-1"
-            @click="cancel"
+          <ButtonOutlineForm
+            class-name="mr-1"
+            @action="cancel"
           >
             Cancelar
-          </button>
+          </ButtonOutlineForm>
 
-          <button
-            type="button"
-            class="btn button-form button-custom-size"
-            @click="formSubmit"
+          <ButtonForm
+            @action="formSubmit"
           >
             {{ textButton }}
-          </button>
+          </ButtonForm>
         </b-col>
       </b-row>
     </b-form>
@@ -100,9 +97,13 @@ import {
 import { messages } from '@core/utils/validations/messages'
 import { createProject, updateProject } from '@core/utils/requests/projects'
 import ToastificationContent from '@core/components/toastification/ToastificationContent.vue'
+import ButtonForm from '@/views/components/custom/buttons/ButtonForm.vue'
+import ButtonOutlineForm from '@/views/components/custom/buttons/ButtonOutlineForm.vue'
 
 export default {
   components: {
+    ButtonOutlineForm,
+    ButtonForm,
     BSpinner,
     ValidationProvider,
     ValidationObserver,

@@ -68,21 +68,20 @@
             md="6"
             sm="12"
           >
-            <button
-              type="button"
-              class="btn button-form button-custom-size mr-1"
-              @click="formSubmitInsert"
+            <ButtonForm
+              class-name="mr-1"
+              @action="formSubmitInsert"
             >
               Adicionar
-            </button>
+            </ButtonForm>
 
-            <button
+            <ButtonOutlineForm
               type="button"
-              class="btn btn-outline-danger button-custom-size"
-              @click="showForm=false"
+              class="button-custom-size"
+              @action="showForm=false"
             >
               Cancelar
-            </button>
+            </ButtonOutlineForm>
           </b-col>
         </b-row>
       </b-form>
@@ -138,21 +137,18 @@
               cols="12"
               class="text-right p-0"
             >
-              <button
-                type="button"
-                class="btn button-form button-custom-size mr-1"
-                @click="formSubmitUpdate"
+              <ButtonForm
+                class-name="mr-1"
+                @action="formSubmitUpdate"
               >
                 Salvar
-              </button>
+              </ButtonForm>
 
-              <button
-                type="button"
-                class="btn btn-outline-danger button-custom-size"
-                @click="clear(); showModal=false"
+              <ButtonOutlineForm
+                @action="clear(); showModal=false"
               >
                 Cancelar
-              </button>
+              </ButtonOutlineForm>
             </b-col>
           </b-col>
         </b-row>
@@ -185,9 +181,13 @@ import Post from '@/views/components/custom/Post.vue'
 import {
   createNote, getAllNotes, removeNote, showNoteId, updateNote,
 } from '@core/utils/requests/notes'
+import ButtonForm from '@/views/components/custom/buttons/ButtonForm.vue'
+import ButtonOutlineForm from '@/views/components/custom/buttons/ButtonOutlineForm.vue'
 
 export default {
   components: {
+    ButtonOutlineForm,
+    ButtonForm,
     ValidationProvider,
     ValidationObserver,
     PageHeader,

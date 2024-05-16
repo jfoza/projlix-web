@@ -8,4 +8,7 @@ export default {
 
   projects: '/projects',
   projectId: id => `/projects/${id}`,
+
+  adminUsers: '/admin-users',
+  adminUserId: id => `/admin-users/id/${id}`,
 }

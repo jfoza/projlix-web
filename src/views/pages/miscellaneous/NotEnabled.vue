@@ -22,8 +22,8 @@
 </template>
 
 <script>
-import CustomMisc from '@/views/components/custom/CustomMisc'
-import LoadButton from '@/views/components/custom/LoadButton'
+import CustomMisc from '@/views/components/custom/CustomMisc.vue'
+import LoadButton from "@/views/components/custom/buttons/LoadButton.vue"
 import { LockIcon } from 'vue-feather-icons'
 
 export default {

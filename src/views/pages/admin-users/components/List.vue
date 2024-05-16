@@ -75,43 +75,40 @@
                 class="actions-area"
               >
                 <div class="action-search">
-                  <button
-                    type="button"
-                    class="btn button-form button-config mr-2"
-                    @click.prevent="handleSubmitFormFilters"
+                  <ButtonForm
+                    class-name="button-config mr-2"
+                    @action="handleSubmitFormFilters"
                   >
                     <feather-icon
                       icon="SearchIcon"
                     />
                     Pesquisar
-                  </button>
+                  </ButtonForm>
 
-                  <button
-                    type="button"
-                    class="btn btn-outline-form button-config"
-                    @click="clearFilters"
+                  <ButtonOutlineForm
+                    class-name="button-config"
+                    @action="clearFilters"
                   >
                     <feather-icon
                       icon="XIcon"
                     />
                     Limpar
-                  </button>
+                  </ButtonOutlineForm>
                 </div>
               </b-col>
             </b-row>
 
             <b-row class="mt-3 mb-1">
               <b-col>
-                <b-link
-                  type="button"
-                  class="btn button-form button-plus"
-                  :to="{ name: 'admin-users-insert' }"
+                <ButtonForm
+                  class-name="button-plus"
+                  @action="$router.replace({ name: 'admin-users-insert' })"
                 >
                   <feather-icon
                     icon="PlusIcon"
                   />
                   Adicionar novo usuário
-                </b-link>
+                </ButtonForm>
               </b-col>
             </b-row>
           </b-form>
@@ -274,11 +271,15 @@ import { getAdminUsers } from '@core/utils/requests/users'
 import moment from 'moment'
 import vSelect from 'vue-select'
 import CustomPagination from '@/views/components/custom/CustomPagination'
-import ButtonIcon from '@/views/components/custom/ButtonIcon'
+import ButtonIcon from '@/views/components/custom/buttons/ButtonIcon'
 import StatusField from '@/views/components/custom/StatusField'
+import ButtonForm from '@/views/components/custom/buttons/ButtonForm.vue'
+import ButtonOutlineForm from '@/views/components/custom/buttons/ButtonOutlineForm.vue'
 
 export default {
   components: {
+    ButtonOutlineForm,
+    ButtonForm,
     ValidationProvider,
     ValidationObserver,
     PageHeader,
@@ -355,6 +356,10 @@ export default {
     }
   },
 
+  mounted() {
+    this.findAll()
+  },
+
   methods: {
     findAll() {
       this.table.tableError = false
@@ -394,9 +399,9 @@ export default {
     },
 
     redirectUpdatePage(user) {
-      this.$store.commit('usersModuleStore/SET_CHOOSE_USER', user)
+      this.$store.commit('adminUsers/setChooseAdminUser', user)
 
-      this.$router.replace({ name: 'admin-users' })
+      this.$router.replace({ name: 'admin-users-update' })
     },
 
     clearFilters() {

@@ -1,14 +1,11 @@
 <template>
   <button
-    :class="className"
     type="button"
-    :style="getBtnStyles"
+    class="btn button-form"
+    :class="className"
     @click="action"
   >
-    <feather-icon
-      :size="size"
-      :icon="featherIcon"
-    />
+    <slot />
   </button>
 </template>
 
@@ -19,35 +16,6 @@ export default {
       type: String,
       default: '',
     },
-    color: {
-      type: String,
-      default: '#b4b7bd',
-    },
-    size: {
-      type: String,
-      default: '18',
-    },
-    featherIcon: {
-      type: String,
-      default: '',
-    },
-  },
-
-  data() {
-    return {
-      btnClass: 'btn btn-custom-clear',
-    }
-  },
-
-  computed: {
-    getBtnStyles() {
-      return {
-        color: this.color,
-        backgroundColor: 'transparent',
-        padding: 0,
-        border: 'none',
-      }
-    },
   },
 
   methods: {
@@ -57,3 +25,25 @@ export default {
   },
 }
 </script>
+
+<style scoped lang="scss">
+@import '@/assets/scss/variables/variables';
+
+.button-form {
+  background-color: $primary-100 !important;
+  color: $white !important;
+  transition: .5s background-color !important;
+}
+
+.button-form:hover {
+  background-color: $primary-100-hover !important;
+  color: $white !important;
+}
+
+@media(max-width: 400px) {
+  .button-form {
+    width: 100%;
+    margin-bottom: 1rem;
+  }
+}
+</style>

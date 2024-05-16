@@ -22,7 +22,7 @@
 
 <script>
 import CustomMisc from '@/views/components/custom/CustomMisc'
-import LoadButton from '@/views/components/custom/LoadButton'
+import LoadButton from "@/views/components/custom/buttons/LoadButton.vue"
 import { CoffeeIcon } from 'vue-feather-icons'
 
 export default {

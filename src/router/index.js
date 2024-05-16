@@ -4,6 +4,7 @@ import VueRouter from 'vue-router'
 // Routes
 import { canNavigate } from '@/libs/acl/routeProtection'
 import { getHomeRouteForLoggedInUser, getUserData, isUserLoggedIn } from '@/auth/utils'
+import adminUsers from '@/views/pages/admin-users/routes'
 import auth from './routes/auth'
 import misc from './routes/misc'
 import home from './routes/home'
@@ -25,6 +26,7 @@ const router = new VueRouter({
     ...home,
     ...projects,
     ...notes,
+    ...adminUsers,
     {
       path: '*',
       redirect: { name: 'error-404' },

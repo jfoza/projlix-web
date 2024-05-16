@@ -15,12 +15,9 @@
             btn-text="Cadastre-se"
           />
 
-          <button
-            type="button"
-            class="btn button-form button-custom-size btn-icon-create-account"
-          >
+          <ButtonForm>
             <feather-icon icon="UserPlusIcon" />
-          </button>
+          </ButtonForm>
         </div>
       </nav>
 
@@ -186,15 +183,17 @@ import { getHomeRouteForLoggedInUser } from '@/auth/utils'
 import ToastificationContent from '@core/components/toastification/ToastificationContent.vue'
 import { messages } from '@core/utils/validations/messages'
 import googleIcon from '@/assets/images/icons/custom/google.svg'
-import GoogleButton from '@/views/components/custom/GoogleButton.vue'
+import GoogleButton from '@/views/components/custom/buttons/GoogleButton.vue'
 import Main from '@/views/pages/authentication/components/Main.vue'
-import LoginButton from '@/views/components/custom/LoginButton.vue'
+import LoginButton from '@/views/components/custom/buttons/LoginButton.vue'
+import ButtonForm from '@/views/components/custom/buttons/ButtonForm.vue'
 
 export default {
   directives: {
     'b-tooltip': VBTooltip,
   },
   components: {
+    ButtonForm,
     LoginButton,
     Main,
     GoogleButton,

@@ -20,7 +20,7 @@
 
 <script>
 import CustomMisc from "@/views/components/custom/CustomMisc"
-import LoadButton from "@/views/components/custom/LoadButton.vue"
+import LoadButton from "@/views/components/custom/buttons/LoadButton.vue"
 import { AlertCircleIcon } from 'vue-feather-icons'
 
 export default {

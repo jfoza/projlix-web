@@ -78,6 +78,7 @@
     "vuex-persistedstate": "^4.1.0"
   },
   "devDependencies": {
+    "@types/vue-select": "^3.16.8",
     "@vue/cli-plugin-babel": "~4.5.9",
     "@vue/cli-plugin-eslint": "~4.5.9",
     "@vue/cli-plugin-router": "~4.5.9",

@@ -1,7 +1,7 @@
 <template>
   <button
     type="button"
-    class="btn button-form"
+    class="btn button-outline-form"
     :class="className"
     @click="action"
   >
@@ -29,15 +29,18 @@ export default {
 <style scoped lang="scss">
 @import '@/assets/scss/variables/variables';
 
-.button-form {
-  background-color: $primary-100 !important;
-  color: $white !important;
-  transition: .5s background-color !important;
+.button-outline-form {
+  background-color: transparent;
+  border: solid 1px $accent-300;
+  color: $accent-300 !important;
+  transition: .3s background-color;
 }
 
-.button-form:hover {
-  background-color: $primary-100-hover !important;
-  color: $white !important;
+.button-outline-form:hover {
+  background-color: transparent;
+  border: solid 1px $accent-300;
+  color: $accent-300 !important;
+  text-decoration: underline;
 }
 
 @media(max-width: 400px) {

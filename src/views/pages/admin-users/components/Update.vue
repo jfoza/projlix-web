@@ -1,6 +1,5 @@
 <template>
   <div
-    v-if="getValidation"
     class="content-wrapper"
   >
     <page-header
@@ -8,11 +7,19 @@
       :link-items="linkItems"
     />
 
+    <div
+      v-if="loading"
+      class="spinner-area"
+    >
+      <b-spinner
+        variant="custom"
+        label="Loading..."
+      />
+    </div>
+
     <Form
-      ref="form"
       :mode="formActions.updateAction"
-      :form-data="form"
-      @clear="clearForm"
+      @setLoading="setLoading"
     />
   </div>
 </template>
@@ -25,10 +32,12 @@ import { getUserId } from '@core/utils/requests/users'
 import { warningMessage } from '@/libs/alerts/sweetalerts'
 import { formActions } from '@core/utils/formActions'
 import { messages } from '@core/utils/validations/messages'
+import { BSpinner } from 'bootstrap-vue'
 import Form from './Form.vue'
 
 export default {
   components: {
+    BSpinner,
     PageHeader,
     Form,
   },
@@ -38,7 +47,7 @@ export default {
       linkItems: [
         {
           name: 'Gerenciar Usuários',
-          routeName: '',
+          routeName: 'admin-users',
         },
         {
           name: 'Editar Usuário',
@@ -46,51 +55,33 @@ export default {
         },
       ],
 
-      validation: false,
+      loading: true,
 
       formActions,
-
-      userStore: {
-        id: '',
-      },
-
-      form: {
-        id: '',
-        name: '',
-        email: '',
-        password: '',
-        passwordConfirmation: '',
-        profile: null,
-      },
     }
   },
 
   computed: {
-    getValidation() {
-      return this.validation
+    getChooseAdminUser() {
+      return this.$store.getters['adminUsers/getChooseAdminUser']
     },
   },
 
-  // eslint-disable-next-line consistent-return
   created() {
-    if (!this.userStore) {
+    if (!this.getChooseAdminUser.id) {
       this.redirectToMainPage()
 
       return false
     }
 
-    this.validation = true
-  },
-
-  mounted() {
-    this.getChooseUser()
+    return this.getChooseUser()
   },
 
   methods: {
     async getChooseUser() {
-      this.$refs.form.loading = true
+      this.setLoading(true)
 
-      await getUserId(this.userStore.id)
+      await getUserId(this.getChooseAdminUser.id)
         .then(response => {
           const {
             id,
@@ -100,7 +91,7 @@ export default {
             active,
           } = response.data
 
-          this.form = {
+          this.$store.commit('adminUsers/setFormData', {
             id,
             name,
             email,
@@ -109,33 +100,23 @@ export default {
               boolValue: active,
               description: active ? 'Ativo' : 'Inativo',
             },
-          }
+          })
         })
         .catch(() => {
           warningMessage(messages.impossible)
         })
 
-      this.$refs.form.loading = false
+      this.setLoading(false)
     },
 
     redirectToMainPage() {
       this.clearForm()
-      this.$store.commit('usersModuleStore/SET_CHOOSE_USER', null)
-      this.$router.replace({ name: 'home' })
+      this.$store.commit('adminUsers/clearChooseAdminUser')
+      this.$router.replace({ name: 'admin-users' })
     },
 
-    clearForm() {
-      this.form = {
-        name: '',
-        email: '',
-        password: '',
-        passwordConfirmation: '',
-        active: {
-          boolValue: true,
-          description: 'Ativo',
-        },
-        profile: null,
-      }
+    setLoading(loading) {
+      this.loading = loading
     },
   },
 }

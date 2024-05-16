@@ -5,6 +5,7 @@ import Vuex from 'vuex'
 // Modules
 import createPersistedState from 'vuex-persistedstate'
 import sessions from '@/store/sessions'
+import adminUsers from '@/views/pages/admin-users/store'
 import app from './app'
 import appConfig from './app-config'
 import verticalMenu from './vertical-menu'
@@ -21,11 +22,13 @@ export default new Vuex.Store({
     verticalMenu,
     defineMenus,
     projects,
+    adminUsers,
   },
   plugins: [
     createPersistedState({
       paths: [
         'sessions',
+        'adminUsers',
       ],
     }),
   ],
