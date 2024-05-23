@@ -98,7 +98,7 @@ export const confirmAction = message => new Promise((resolve, reject) => {
     denyButtonText: 'Não',
     customClass: {
       confirmButton: 'confirm-button-sweet',
-    }
+    },
   }).then(result => {
     if (result.isConfirmed) {
       resolve()
@@ -108,11 +108,11 @@ export const confirmAction = message => new Promise((resolve, reject) => {
   })
 })
 
-export const warningMessageUpdateStatus = (title, html) => new Promise((resolve, reject) => {
+export const warningMessageUpdateStatus = (title, message) => new Promise((resolve, reject) => {
   Swal.fire({
     icon: 'warning',
     title,
-    html,
+    html: `<span style="color: #ff9f43">${message}</span>` || '',
     showDenyButton: true,
     confirmButtonText: 'Sim, alterar',
     denyButtonText: 'Cancelar',

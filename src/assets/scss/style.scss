@@ -141,6 +141,15 @@ body.dark-layout {
   color: #b4b7bd !important;
 }
 
+.dark-layout input.form-control:not(:focus), .dark-layout .custom-file-label:not(:focus), .dark-layout textarea.form-control:not(:focus) {
+  border-color: #404656 !important;
+}
+
+.custom-control-success .custom-control-input:checked ~ .custom-control-label::before, [dir] .custom-control-success .custom-control-input:active ~ .custom-control-label::before {
+  border-color: $primary-100 !important;
+  background-color: $primary-100 !important;
+}
+
 @media(max-width: 576px) {
   .button-config {
     width: 100%;

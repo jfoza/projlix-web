@@ -75,7 +75,7 @@
                   label-for="status"
                 >
                   <v-select
-                    id="categories"
+                    id="status"
                     v-model="search.active"
                     :options="statusForm"
                     variant="custom"
@@ -292,14 +292,24 @@
                 </div>
               </template>
 
-              <template #cell(active)="row">
-                <status-field
-                  :status="row.value"
-                />
-              </template>
-
               <template #cell(created_at)="row">
                 <span>{{ moment(row.value).format("DD/MM/YYYY HH:mm") }}</span>
+              </template>
+
+              <template #cell(active)="row">
+                <b-form-checkbox
+                  :disabled="isDisabledCheckbox"
+                  :checked="row.value"
+                  class="custom-control-success"
+                  name="check-button"
+                  switch
+                  @change="handleConfirmUpdateStatus(row.item)"
+                >
+                  <span class="switch-icon-left">
+                    <feather-icon icon="CheckIcon" />
+                  </span>
+                  <span class="switch-icon-right" />
+                </b-form-checkbox>
               </template>
 
               <template #cell(actions)="row">
@@ -337,6 +347,7 @@ import {
   BForm,
   BFormGroup,
   BFormInput,
+  BFormCheckbox,
   BTable,
   BSpinner,
   BAlert,
@@ -348,13 +359,15 @@ import moment from 'moment'
 import vSelect from 'vue-select'
 import CustomPagination from '@/views/components/custom/CustomPagination'
 import ButtonIcon from '@/views/components/custom/buttons/ButtonIcon'
-import StatusField from '@/views/components/custom/StatusField'
 import ButtonForm from '@/views/components/custom/buttons/ButtonForm.vue'
 import ButtonOutlineForm from '@/views/components/custom/buttons/ButtonOutlineForm.vue'
-import { getTeamUsers } from '@/views/pages/team-users/api'
+import { getTeamUsers, updateTeamUserStatus } from '@/views/pages/team-users/api'
 import { statusForm } from '@core/utils/statusForm'
 import { getAllProjects } from '@/views/pages/projects/api/projects'
 import { getAllProfiles } from '@/views/pages/admin-users/api'
+import { messages } from '@core/utils/validations/messages'
+import { warningMessageUpdateStatus } from '@/libs/alerts/sweetalerts'
+import { toastWarning } from '@/libs/alerts/toast'
 
 export default {
   components: {
@@ -369,10 +382,10 @@ export default {
     BForm,
     BFormGroup,
     BFormInput,
+    BFormCheckbox,
     BTable,
     BSpinner,
     BAlert,
-    StatusField,
     CustomPagination,
     ButtonIcon,
   },
@@ -399,13 +412,12 @@ export default {
 
       projects: [],
 
+      isDisabledCheckbox: false,
+
       search: {
         name: '',
         email: '',
-        active: {
-          boolValue: true,
-          description: 'Ativo',
-        },
+        active: null,
         profile: null,
         project: null,
       },
@@ -503,6 +515,46 @@ export default {
         })
     },
 
+    handleConfirmUpdateStatus({ user, active }) {
+      const { title1, title2, value } = messages.confirmUpdateUniqueTeamUserStatus
+
+      warningMessageUpdateStatus(active ? title1 : title2, value)
+        .then(() => {
+          this.handleUpdateTeamUserStatus(user.id)
+        })
+        .catch(() => {
+          this.table.items = []
+          this.findAll()
+        })
+    },
+
+    async handleUpdateTeamUserStatus(id) {
+      this.isDisabledCheckbox = true
+
+      await updateTeamUserStatus(id)
+        .then(response => {
+          if (response.status === 200) {
+            this.table.items = []
+            this.findAll()
+          }
+        })
+        .catch(error => {
+          this.handleError(error.response)
+        })
+
+      this.isDisabledCheckbox = false
+    },
+
+    handleError(response) {
+      const errors = response.status === 400 || response.status === 404
+
+      if (errors) {
+        return toastWarning(response.data.error)
+      }
+
+      return toastWarning(messages.impossible)
+    },
+
     redirectUpdatePage(user) {
       this.$store.commit('adminUsers/setChooseAdminUser', user)
 
@@ -536,6 +588,12 @@ export default {
     },
 
     setParams() {
+      let active = null
+
+      if (this.search.active) {
+        active = this.search.active.boolValue ? 1 : 0
+      }
+
       return {
         columnName: this.table.tableColumnNameOrder,
         columnOrder: this.table.tableOrder,
@@ -543,7 +601,7 @@ export default {
         page: this.paginationData.currentPage,
         name: this.search.name,
         email: this.search.email,
-        active: this.search.active.boolValue ? 1 : 0,
+        active,
         profileId: this.search.profile ? this.search.profile.id : null,
         projectId: this.search.project ? this.search.project.id : null,
       }

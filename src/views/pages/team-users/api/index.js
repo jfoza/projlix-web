@@ -44,3 +44,14 @@ export const updateTeamUser = (id, form) => new Promise((resolve, reject) => {
       reject(error)
     })
 })
+
+export const updateTeamUserStatus = id => new Promise((resolve, reject) => {
+  axiosIns
+    .put(apiRoutes.teamUserStatus(id))
+    .then(response => {
+      resolve(response)
+    })
+    .catch(error => {
+      reject(error)
+    })
+})

@@ -26,43 +26,10 @@ export const messages = {
 
   confirmRemoveUserAvatar: 'Deseja remover a imagem de perfil deste usuário ?',
 
-  confirmUpdateMemberStatus: {
+  confirmUpdateUniqueTeamUserStatus: {
     title1: 'Tem certeza que deseja inativar ?',
     title2: 'Tem certeza que deseja ativar ?',
-    value: 'Essa ação irá afetar o acesso deste usuário à plataforma.',
-  },
-
-  confirmUpdateManyDepartmentsStatus: {
-    title: 'Tem certeza que deseja alterar estes registros ?',
-    value: 'Essa ação irá afetar a visualização das categorias e produtos vinculados. <br>Departamentos ativos serão inativados.<br>Departamentos inativos serão ativados novamente.',
-  },
-
-  confirmUpdateUniqueDepartmentStatus: {
-    title1: 'Tem certeza que deseja inativar ?',
-    title2: 'Tem certeza que deseja ativar ?',
-    value: 'Essa ação irá afetar a visualização de produtos e categorias vinculadas a este departamento.',
-  },
-
-  confirmUpdateManyCategoriesStatus: {
-    title: 'Tem certeza que deseja alterar estes registros ?',
-    value: 'Essa ação irá afetar a visualização dos produtos vinculados a esta(s) categoria(s). <br>Categorias ativas serão inativadas.<br>Categorias inativas serão ativadas novamente.',
-  },
-
-  confirmUpdateUniqueCategoryStatus: {
-    title1: 'Tem certeza que deseja inativar ?',
-    title2: 'Tem certeza que deseja ativar ?',
-    value: 'Essa ação irá afetar a visualização de produtos vinculados a esta categoria.',
-  },
-
-  confirmUpdateManyProductsStatus: {
-    title: 'Tem certeza que deseja alterar estes registros ?',
-    value: 'Essa ação irá afetar a visualização deste(s) produto(s) na área pública. <br>Produtos ativos serão inativados.<br>Produtos inativos serão ativados novamente.',
-  },
-
-  confirmUpdateUniqueProductStatus: {
-    title1: 'Tem certeza que deseja inativar ?',
-    title2: 'Tem certeza que deseja ativar ?',
-    value: 'Essa ação irá afetar a visualização deste produto na área pública.',
+    value: 'Essa ação irá afetar o acesso deste usuário ao sistema.',
   },
 
   countField: value => `Este campo deve conter no mínimo ${value} caracteres.`,
