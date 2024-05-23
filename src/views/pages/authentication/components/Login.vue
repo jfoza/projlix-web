@@ -10,10 +10,6 @@
           <p class="create-account-title">
             Não tem uma conta ?
           </p>
-          <login-button
-            class="btn-create-account"
-            btn-text="Cadastre-se"
-          />
 
           <ButtonForm>
             <feather-icon icon="UserPlusIcon" />
@@ -121,6 +117,7 @@
                         class="form-control-merge"
                         :state="errors.length > 0 ? false : null"
                         placeholder="********"
+                        @keyup.enter="formSubmit"
                       />
 
                       <b-input-group-append is-text>
@@ -139,7 +136,7 @@
                   class-name="w-100 mt-1 mb-2"
                   btn-text="Entrar"
                   :loading="loading"
-                  @action="handleLogin"
+                  @action="formSubmit"
                 />
               </b-form>
 
@@ -226,16 +223,16 @@ export default {
         email: '',
         password: '',
       },
+
       alert: {
         show: false,
         message: '',
         variant: '',
       },
+
       state: true,
 
       loading: false,
-
-      msgButton: 'Entrar',
 
       disabledButton: false,
 

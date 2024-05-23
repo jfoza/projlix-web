@@ -8,6 +8,7 @@
 
     <div>
       <button
+        v-if="getNotesUpdateRule"
         type="button"
         class="btn p-0 btn-post-edit"
         @click="update"
@@ -19,6 +20,7 @@
       </button>
 
       <button
+        v-if="getNotesDeleteRule"
         type="button"
         class="btn p-0 btn-post-remove"
         @click="remove"
@@ -33,6 +35,8 @@
 </template>
 
 <script>
+import { actions, subjects } from '@/libs/acl/rules'
+
 export default {
   props: {
     noteId: {
@@ -52,6 +56,14 @@ export default {
 
     getContent() {
       return this.noteContent
+    },
+
+    getNotesUpdateRule() {
+      return this.$can(actions.UPDATE, subjects.NOTES)
+    },
+
+    getNotesDeleteRule() {
+      return this.$can(actions.DELETE, subjects.NOTES)
     },
   },
 

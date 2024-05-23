@@ -3,6 +3,8 @@ export default {
   googleLogin: '/auth/login/google',
   logout: '/auth/logout',
 
+  profiles: '/profiles',
+
   notes: '/notes',
   noteId: id => `/notes/${id}`,
 
@@ -11,4 +13,7 @@ export default {
 
   adminUsers: '/admin-users',
   adminUserId: id => `/admin-users/id/${id}`,
+
+  teamUsers: '/team-users',
+  teamUserId: id => `/team-users/id/${id}`,
 }

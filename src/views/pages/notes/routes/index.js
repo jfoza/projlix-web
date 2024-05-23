@@ -1,3 +1,5 @@
+import { actions, subjects } from '@/libs/acl/rules'
+
 export default [
   {
     path: '/notas',
@@ -5,8 +7,8 @@ export default [
     component: () => import('@/views/pages/notes/components/Notes.vue'),
     meta: {
       resource: 'ACL',
-      subject: 'NOTES',
-      action: 'VIEW',
+      subject: subjects.NOTES,
+      action: actions.VIEW,
     },
   },
 ]

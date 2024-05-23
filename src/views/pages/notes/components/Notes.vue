@@ -25,6 +25,7 @@
             cols="12"
           >
             <b-link
+              v-if="getNotesInsertRule"
               class="show-form"
               @click="handleShowForm"
             >
@@ -183,6 +184,7 @@ import {
 import ButtonForm from '@/views/components/custom/buttons/ButtonForm.vue'
 import ButtonOutlineForm from '@/views/components/custom/buttons/ButtonOutlineForm.vue'
 import { toastSuccess, toastWarning } from '@/libs/alerts/toast'
+import { actions, subjects } from '@/libs/acl/rules'
 
 export default {
   components: {
@@ -242,6 +244,12 @@ export default {
         content: '',
       },
     }
+  },
+
+  computed: {
+    getNotesInsertRule() {
+      return this.$can(actions.INSERT, subjects.NOTES)
+    },
   },
 
   mounted() {

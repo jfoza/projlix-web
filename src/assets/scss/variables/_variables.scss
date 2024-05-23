@@ -28,23 +28,6 @@ $custom-green: #28c76f;
 $custom-red: #EA5455;
 $custom-warning: #FF9110;
 
-$colors-palette1: #0B132B;
-$colors-palette2: #1C2541;
-$colors-palette2-hover: #141b31;
-$colors-palette3: #3A506B;
-$colors-palette4: #5BC0BE;
-$colors-palette5: #6FFFE9;
-
-$colors-palette2-opacity: rgba(28,37,65, 0.1);
-
-$theme-colors: (
-  "colors-palette1": $colors-palette1,
-  "colors-palette2": $colors-palette2,
-  "colors-palette3": $colors-palette3,
-  "colors-palette4": $colors-palette4,
-  "colors-palette5": $colors-palette5,
-);
-
 $primary-100: #278350;
 $primary-100-hover: #1e5938;
 $primary-200: #61bc84;
@@ -52,6 +35,7 @@ $primary-300: #c6ffe6;
 $accent-100: #8FBC8F;
 $accent-200: #345e37;
 $accent-300: #7367f0;
+$accent-300-hover: #6054d8;
 $text-100: #FFFFFF;
 $text-200: #e0e0e0;
 $bg-100: #23272BFF;

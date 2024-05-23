@@ -12,6 +12,17 @@ export const getAdminUsers = params => new Promise((resolve, reject) => {
     })
 })
 
+export const getAllProfiles = params => new Promise((resolve, reject) => {
+  axiosIns
+    .get(apiRoutes.profiles, { params })
+    .then(response => {
+      resolve(response)
+    })
+    .catch(error => {
+      reject(error)
+    })
+})
+
 export const getUserId = id => new Promise((resolve, reject) => {
   axiosIns
     .get(apiRoutes.adminUserId(id))

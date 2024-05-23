@@ -10,12 +10,12 @@
   height: 130px;
   width: 130px;
   position: relative;
-  border: 2px solid $colors-palette2;
+  border: 2px solid $accent-300;
   border-radius: 5px;
   display: flex;
   align-items: center;
   justify-content: center;
-  color: $colors-palette2;
+  color: $accent-300;
 
   .image-preview {
     height: 100%;
@@ -52,7 +52,7 @@ label {
   align-items: center;
   justify-content: center;
   color: $white;
-  background-color: $colors-palette2;
+  background-color: $accent-300;
   font-weight: 400;
   text-align: center;
   white-space: nowrap;
@@ -78,7 +78,7 @@ label {
 
 label:hover,
 label:focus {
-  border-color: $colors-palette2;
+  border-color: $accent-300;
   cursor: pointer;
 }
 
