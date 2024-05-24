@@ -2,42 +2,38 @@
   <div
     class="content-wrapper"
   >
-    <page-header
-      screen-name="Editar Usuário"
-      :link-items="linkItems"
-    />
-
-    <div
-      v-if="loading"
-      class="spinner-area"
+    <b-overlay
+      :show="loading"
+      variant="transparent"
     >
-      <b-spinner
-        variant="custom"
-        label="Loading..."
+      <page-header
+        screen-name="Editar Usuário"
+        :link-items="linkItems"
       />
-    </div>
 
-    <Form
-      :mode="formActions.updateAction"
-      @setLoading="setLoading"
-    />
+      <div class="card p-card-form">
+        <Form
+          :mode="formActions.updateAction"
+          @setLoading="setLoading"
+        />
+      </div>
+    </b-overlay>
   </div>
 </template>
 
 <script>
 
-// eslint-disable-next-line import/extensions
-import PageHeader from '@/views/components/custom/PageHeader'
-import { getUserId } from '@/views/pages/admin-users/api'
+import PageHeader from '@/views/components/custom/PageHeader.vue'
 import { warningMessage } from '@/libs/alerts/sweetalerts'
 import { formActions } from '@core/utils/formActions'
 import { messages } from '@core/utils/validations/messages'
-import { BSpinner } from 'bootstrap-vue'
+import { BOverlay } from 'bootstrap-vue'
+import { getTeamUserId } from '@/views/pages/team-users/api'
 import Form from './Form.vue'
 
 export default {
   components: {
-    BSpinner,
+    BOverlay,
     PageHeader,
     Form,
   },
@@ -53,6 +49,10 @@ export default {
           name: 'Editar Usuário',
           active: true,
         },
+        {
+          name: '...',
+          active: true,
+        },
       ],
 
       loading: true,
@@ -62,45 +62,41 @@ export default {
   },
 
   computed: {
-    getChooseAdminUser() {
-      return this.$store.getters['adminUsers/getChooseAdminUser']
+    getChooseTeamUser() {
+      return this.$store.getters['teamUsers/getChooseTeamUser']
     },
   },
 
   created() {
-    if (!this.getChooseAdminUser.id) {
+    if (!this.getChooseTeamUser.user.id) {
       this.redirectToMainPage()
 
       return false
     }
 
-    return this.getChooseUser()
+    return this.handleGetChooseTeamUser()
   },
 
   methods: {
-    async getChooseUser() {
+    async handleGetChooseTeamUser() {
       this.setLoading(true)
 
-      await getUserId(this.getChooseAdminUser.id)
+      await getTeamUserId(this.getChooseTeamUser.user.id)
         .then(response => {
           const {
-            id,
-            name,
-            email,
-            profile,
-            active,
+            user,
+            projects,
           } = response.data
 
-          this.$store.commit('adminUsers/setFormData', {
-            id,
-            name,
-            email,
-            profile,
-            active: {
-              boolValue: active,
-              description: active ? 'Ativo' : 'Inativo',
-            },
+          this.$store.commit('teamUsers/setFormData', {
+            id: user.id,
+            name: user.name,
+            email: user.email,
+            profile: user.profile.length > 0 ? user.profile[0] : null,
+            projects,
           })
+
+          this.linkItems[2].name = this.$store.getters['teamUsers/getFormData'].name
         })
         .catch(() => {
           warningMessage(messages.impossible)
@@ -110,9 +106,9 @@ export default {
     },
 
     redirectToMainPage() {
-      this.clearForm()
-      this.$store.commit('adminUsers/clearChooseAdminUser')
-      this.$router.replace({ name: 'admin-users' })
+      this.$store.commit('teamUsers/clearFormData')
+      this.$store.commit('teamUsers/clearChooseTeamUser')
+      this.$router.replace({ name: 'team-users' })
     },
 
     setLoading(loading) {

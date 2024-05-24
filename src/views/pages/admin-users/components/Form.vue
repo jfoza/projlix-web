@@ -1,164 +1,162 @@
 <template>
-  <div class="p-card-form">
-    <validation-observer
-      ref="formUser"
-    >
-      <b-form>
-        <b-row>
-          <b-col
-            sm="6"
-            lg="4"
+  <validation-observer
+    ref="formUser"
+  >
+    <b-form>
+      <b-row>
+        <b-col
+          sm="6"
+          lg="4"
+        >
+          <b-form-group
+            label="Nome"
+            label-for="name"
           >
-            <b-form-group
-              label="Nome"
-              label-for="name"
+            <validation-provider
+              #default="{ errors }"
+              name="Nome"
+              rules="required|noSpecialChars"
             >
-              <validation-provider
-                #default="{ errors }"
-                name="Nome"
-                rules="required|noSpecialChars"
+              <b-form-input
+                id="name"
+                v-model="getFormData.name"
+                autocomplete="off"
+              />
+
+              <small class="text-danger">{{ errors[0] }}</small>
+            </validation-provider>
+          </b-form-group>
+        </b-col>
+
+        <b-col
+          sm="6"
+          lg="4"
+        >
+          <b-form-group
+            label="E-mail"
+            label-for="email"
+          >
+            <validation-provider
+              #default="{ errors }"
+              name="E-mail"
+              rules="required|email"
+            >
+              <b-form-input
+                id="email"
+                v-model="getFormData.email"
+                placeholder="email@email.com"
+                autocomplete="off"
+                type="email"
+              />
+
+              <small class="text-danger">{{ errors[0] }}</small>
+            </validation-provider>
+          </b-form-group>
+        </b-col>
+
+        <b-col
+          sm="6"
+          lg="4"
+        >
+          <b-form-group
+            label="Senha"
+            label-for="reset-password-new"
+          >
+            <validation-provider
+              #default="{ errors }"
+              name="Senha"
+              vid="Password"
+              :rules="getMode === formActions.insertAction ? 'required|password' : 'password'"
+            >
+              <b-input-group
+                class="input-group-merge"
+                :class="errors.length > 0 ? 'is-invalid':null"
               >
                 <b-form-input
-                  id="name"
-                  v-model="getFormData.name"
-                  autocomplete="off"
+                  id="reset-password-new"
+                  v-model="getFormData.password"
+                  :type="password1FieldType"
+                  class="form-control-merge"
+                  name="reset-password-new"
+                  placeholder="******"
                 />
+                <b-input-group-append is-text>
+                  <feather-icon
+                    class="cursor-pointer"
+                    :icon="password1ToggleIcon"
+                    @click="togglePassword1Visibility"
+                  />
+                </b-input-group-append>
+              </b-input-group>
+              <small class="text-danger">{{ errors[0] }}</small>
+            </validation-provider>
+          </b-form-group>
+        </b-col>
 
-                <small class="text-danger">{{ errors[0] }}</small>
-              </validation-provider>
-            </b-form-group>
-          </b-col>
-
-          <b-col
-            sm="6"
-            lg="4"
+        <b-col
+          sm="6"
+          lg="4"
+        >
+          <b-form-group
+            label-for="reset-password-confirm"
+            label="Confirmação de Senha"
           >
-            <b-form-group
-              label="E-mail"
-              label-for="email"
+            <validation-provider
+              #default="{ errors }"
+              name="Confirmação de Senha"
+              :rules="getMode === formActions.insertAction ? 'required|confirmed:Password' : 'confirmed:Password'"
             >
-              <validation-provider
-                #default="{ errors }"
-                name="E-mail"
-                rules="required|email"
+              <b-input-group
+                class="input-group-merge"
+                :class="errors.length > 0 ? 'is-invalid':null"
               >
                 <b-form-input
-                  id="email"
-                  v-model="getFormData.email"
-                  placeholder="email@email.com"
-                  autocomplete="off"
-                  type="email"
+                  id="reset-password-confirm"
+                  v-model="getFormData.passwordConfirmation"
+                  :type="password2FieldType"
+                  class="form-control-merge"
+                  name="reset-password-confirm"
+                  placeholder="******"
                 />
-
-                <small class="text-danger">{{ errors[0] }}</small>
-              </validation-provider>
-            </b-form-group>
-          </b-col>
-
-          <b-col
-            sm="6"
-            lg="4"
-          >
-            <b-form-group
-              label="Senha"
-              label-for="reset-password-new"
-            >
-              <validation-provider
-                #default="{ errors }"
-                name="Senha"
-                vid="Password"
-                :rules="getMode === formActions.insertAction ? 'required|password' : 'password'"
-              >
-                <b-input-group
-                  class="input-group-merge"
-                  :class="errors.length > 0 ? 'is-invalid':null"
-                >
-                  <b-form-input
-                    id="reset-password-new"
-                    v-model="getFormData.password"
-                    :type="password1FieldType"
-                    class="form-control-merge"
-                    name="reset-password-new"
-                    placeholder="******"
+                <b-input-group-append is-text>
+                  <feather-icon
+                    class="cursor-pointer"
+                    :icon="password2ToggleIcon"
+                    @click="togglePassword2Visibility"
                   />
-                  <b-input-group-append is-text>
-                    <feather-icon
-                      class="cursor-pointer"
-                      :icon="password1ToggleIcon"
-                      @click="togglePassword1Visibility"
-                    />
-                  </b-input-group-append>
-                </b-input-group>
-                <small class="text-danger">{{ errors[0] }}</small>
-              </validation-provider>
-            </b-form-group>
-          </b-col>
+                </b-input-group-append>
+              </b-input-group>
+              <small class="text-danger">{{ errors[0] }}</small>
+            </validation-provider>
+          </b-form-group>
+        </b-col>
 
-          <b-col
-            sm="6"
-            lg="4"
+        <b-col
+          cols="12"
+          class="mt-3"
+        >
+          <ButtonForm
+            class-name="mr-2"
+            @action="formSubmit(true)"
           >
-            <b-form-group
-              label-for="reset-password-confirm"
-              label="Confirmação de Senha"
-            >
-              <validation-provider
-                #default="{ errors }"
-                name="Confirmação de Senha"
-                :rules="getMode === formActions.insertAction ? 'required|confirmed:Password' : 'confirmed:Password'"
-              >
-                <b-input-group
-                  class="input-group-merge"
-                  :class="errors.length > 0 ? 'is-invalid':null"
-                >
-                  <b-form-input
-                    id="reset-password-confirm"
-                    v-model="getFormData.passwordConfirmation"
-                    :type="password2FieldType"
-                    class="form-control-merge"
-                    name="reset-password-confirm"
-                    placeholder="******"
-                  />
-                  <b-input-group-append is-text>
-                    <feather-icon
-                      class="cursor-pointer"
-                      :icon="password2ToggleIcon"
-                      @click="togglePassword2Visibility"
-                    />
-                  </b-input-group-append>
-                </b-input-group>
-                <small class="text-danger">{{ errors[0] }}</small>
-              </validation-provider>
-            </b-form-group>
-          </b-col>
+            <feather-icon
+              icon="CheckIcon"
+            />
+            Salvar usuário
+          </ButtonForm>
 
-          <b-col
-            cols="12"
-            class="mt-3"
+          <ButtonOutlineForm
+            @action="cancel"
           >
-            <ButtonForm
-              class-name="mr-2"
-              @action="formSubmit(true)"
-            >
-              <feather-icon
-                icon="CheckIcon"
-              />
-              Salvar usuário
-            </ButtonForm>
-
-            <ButtonOutlineForm
-              @action="cancel"
-            >
-              <feather-icon
-                icon="XIcon"
-              />
-              Cancelar
-            </ButtonOutlineForm>
-          </b-col>
-        </b-row>
-      </b-form>
-    </validation-observer>
-  </div>
+            <feather-icon
+              icon="XIcon"
+            />
+            Cancelar
+          </ButtonOutlineForm>
+        </b-col>
+      </b-row>
+    </b-form>
+  </validation-observer>
 </template>
 
 <script>

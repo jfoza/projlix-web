@@ -348,6 +348,6 @@ export default {
 }
 </script>
 
-<style lang="scss">
+<style scoped lang="scss">
 @import '@core/scss/vue/pages/page-auth.scss';
 </style>

@@ -1,67 +1,56 @@
 /* eslint-disable no-shadow */
 const state = {
-  chooseAdminUser: {
-    id: '',
-    name: '',
-    active: '',
-  },
+  chooseTeamUser: { id: '' },
 
   formData: {
+    id: '',
     name: '',
     email: '',
-    password: '',
-    passwordConfirmation: '',
-    active: {
-      boolValue: true,
-      description: 'Ativo',
-    },
+    profile: null,
+    projects: [],
   },
 }
 
 const mutations = {
-  setChooseAdminUser(state, chooseAdminUser) {
-    state.chooseAdminUser = chooseAdminUser
+  setChooseTeamUser(state, chooseTeamUser) {
+    state.chooseTeamUser = chooseTeamUser
   },
 
   setFormData(state, formData) {
     const {
-      id, name, email, password, passwordConfirmation, active,
+      id,
+      name,
+      email,
+      profile,
+      projects,
     } = formData
 
     state.formData = {
       id,
       name,
       email,
-      password,
-      passwordConfirmation,
-      active,
+      profile,
+      projects,
     }
   },
 
-  clearChooseAdminUser(state) {
-    state.chooseAdminUser = {
-      id: '',
-      name: '',
-      active: '',
-    }
+  clearChooseTeamUser(state) {
+    state.chooseTeamUser = { id: '' }
   },
 
   clearFormData(state) {
     state.formData = {
+      id: '',
       name: '',
       email: '',
-      password: '',
-      passwordConfirmation: '',
-      active: {
-        boolValue: true,
-        description: 'Ativo',
-      },
+      profile: null,
+      projects: [],
     }
   },
 }
 
 const getters = {
-  getChooseAdminUser: state => state.chooseAdminUser,
+  getChooseTeamUser: state => state.chooseTeamUser,
   getFormData: state => state.formData,
 }
 

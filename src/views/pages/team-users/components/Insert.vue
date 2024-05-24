@@ -5,34 +5,29 @@
       :link-items="linkItems"
     />
 
-    <div
-      v-if="loading"
-      class="spinner-area"
+    <b-overlay
+      :show="loading"
+      variant="transparent"
     >
-      <b-spinner
-        variant="custom"
-        label="Loading..."
-      />
-    </div>
-
-    <Form
-      :mode="formActions.insertAction"
-      @setLoading="setLoading"
-    />
+      <div class="card p-card-form">
+        <Form
+          :mode="formActions.insertAction"
+          @setLoading="setLoading"
+        />
+      </div>
+    </b-overlay>
   </div>
 </template>
 
 <script>
-
-// eslint-disable-next-line import/extensions
-import PageHeader from '@/views/components/custom/PageHeader'
+import { BOverlay } from 'bootstrap-vue'
+import PageHeader from '@/views/components/custom/PageHeader.vue'
 import { formActions } from '@core/utils/formActions'
-import { BSpinner } from 'bootstrap-vue'
 import Form from './Form.vue'
 
 export default {
   components: {
-    BSpinner,
+    BOverlay,
     PageHeader,
     Form,
   },
@@ -52,12 +47,12 @@ export default {
 
       formActions,
 
-      loading: false,
+      loading: true,
     }
   },
 
   mounted() {
-    this.$store.commit('adminUsers/clearFormData')
+    this.$store.commit('teamUsers/clearFormData')
   },
 
   methods: {

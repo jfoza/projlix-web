@@ -7,6 +7,7 @@ const state = {
   },
 
   formData: {
+    id: '',
     name: '',
     email: '',
     password: '',
@@ -48,6 +49,7 @@ const mutations = {
 
   clearFormData(state) {
     state.formData = {
+      id: '',
       name: '',
       email: '',
       password: '',

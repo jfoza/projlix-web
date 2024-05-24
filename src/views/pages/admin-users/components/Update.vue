@@ -2,42 +2,38 @@
   <div
     class="content-wrapper"
   >
-    <page-header
-      screen-name="Editar Usuário"
-      :link-items="linkItems"
-    />
-
-    <div
-      v-if="loading"
-      class="spinner-area"
+    <b-overlay
+      :show="loading"
+      variant="transparent"
     >
-      <b-spinner
-        variant="custom"
-        label="Loading..."
+      <page-header
+        screen-name="Editar Usuário"
+        :link-items="linkItems"
       />
-    </div>
 
-    <Form
-      :mode="formActions.updateAction"
-      @setLoading="setLoading"
-    />
+      <div class="card p-card-form">
+        <Form
+          :mode="formActions.updateAction"
+          @setLoading="setLoading"
+        />
+      </div>
+    </b-overlay>
   </div>
 </template>
 
 <script>
 
-// eslint-disable-next-line import/extensions
-import PageHeader from '@/views/components/custom/PageHeader'
+import PageHeader from '@/views/components/custom/PageHeader.vue'
 import { getUserId } from '@/views/pages/admin-users/api'
 import { warningMessage } from '@/libs/alerts/sweetalerts'
 import { formActions } from '@core/utils/formActions'
+import { BOverlay } from 'bootstrap-vue'
 import { messages } from '@core/utils/validations/messages'
-import { BSpinner } from 'bootstrap-vue'
 import Form from './Form.vue'
 
 export default {
   components: {
-    BSpinner,
+    BOverlay,
     PageHeader,
     Form,
   },
@@ -51,6 +47,10 @@ export default {
         },
         {
           name: 'Editar Usuário',
+          active: true,
+        },
+        {
+          name: '...',
           active: true,
         },
       ],
@@ -101,6 +101,8 @@ export default {
               description: active ? 'Ativo' : 'Inativo',
             },
           })
+
+          this.linkItems[2].name = this.$store.getters['adminUsers/getFormData'].name
         })
         .catch(() => {
           warningMessage(messages.impossible)
@@ -110,7 +112,7 @@ export default {
     },
 
     redirectToMainPage() {
-      this.clearForm()
+      this.$store.commit('adminUsers/clearFormData')
       this.$store.commit('adminUsers/clearChooseAdminUser')
       this.$router.replace({ name: 'admin-users' })
     },

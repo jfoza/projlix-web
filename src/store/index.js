@@ -6,6 +6,7 @@ import Vuex from 'vuex'
 import createPersistedState from 'vuex-persistedstate'
 import sessions from '@/views/pages/authentication/store'
 import adminUsers from '@/views/pages/admin-users/store'
+import teamUsers from '@/views/pages/team-users/store'
 import projects from '@/views/pages/projects/store'
 import app from './app'
 import appConfig from './app-config'
@@ -23,12 +24,14 @@ export default new Vuex.Store({
     defineMenus,
     projects,
     adminUsers,
+    teamUsers,
   },
   plugins: [
     createPersistedState({
       paths: [
         'sessions',
         'adminUsers',
+        'teamUsers',
       ],
     }),
   ],

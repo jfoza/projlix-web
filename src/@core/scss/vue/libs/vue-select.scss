@@ -315,8 +315,8 @@ $vs-dropdown-box-shadow: 0px 4px 25px 0px rgba(0, 0, 0, 0.1);
   .v-select {
     &:not(.vs--single) {
       .vs__selected {
-        background-color: rgba($bg-200, 0.12);
-        color: $bg-200;
+        background-color: $accent-300;
+        color: $white;
       }
     }
 
