@@ -1,7 +1,7 @@
 <template>
-  <custom-misc v-if="view">
+  <Misc v-if="view">
     <span class="icon-page-misc mb-2">
-      <LockIcon />
+      <feather-icon icon="LockIcon" />
     </span>
 
     <div class="text-center mb-1">
@@ -18,25 +18,22 @@
       message="Voltar ao início"
       @action="handleRedirect"
     />
-  </custom-misc>
+  </Misc>
 </template>
 
 <script>
-/* eslint-disable import/extensions */
-import CustomMisc from '@/views/components/custom/CustomMisc'
-import LoadButton from "@/views/components/custom/buttons/LoadButton.vue"
-import { LockIcon } from 'vue-feather-icons'
+import LoadButton from '@/views/components/custom/buttons/LoadButton.vue'
 import {
   clearStore, logoutUserRedirectToLogin, setLoggedUserData,
 } from '@/auth/utils'
+import Misc from '@/views/pages/miscellaneous/components/Misc.vue'
 
 export default {
   title: 'Página não autorizada',
 
   components: {
+    Misc,
     LoadButton,
-    CustomMisc,
-    LockIcon,
   },
 
   data() {
@@ -79,7 +76,3 @@ export default {
   },
 }
 </script>
-
-<style lang="scss">
-@import '@core/scss/vue/pages/page-misc.scss';
-</style>

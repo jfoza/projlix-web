@@ -37,7 +37,7 @@ export default {
     },
     bgColor: {
       type: String,
-      default: '#1d54a2',
+      default: '#7367f0',
     },
     color: {
       type: String,

@@ -1,7 +1,7 @@
 <template>
-  <custom-misc>
+  <Misc>
     <span class="icon-page-misc mb-2">
-      <LockIcon />
+      <feather-icon icon="LockIcon" />
     </span>
 
     <div class="text-center mb-1">
@@ -18,19 +18,17 @@
       message="Voltar para o login"
       @action="handleRedirectToLogin"
     />
-  </custom-misc>
+  </Misc>
 </template>
 
 <script>
-import CustomMisc from '@/views/components/custom/CustomMisc.vue'
-import LoadButton from "@/views/components/custom/buttons/LoadButton.vue"
-import { LockIcon } from 'vue-feather-icons'
+import LoadButton from '@/views/components/custom/buttons/LoadButton.vue'
+import Misc from '@/views/pages/miscellaneous/components/Misc.vue'
 
 export default {
   components: {
-    CustomMisc,
+    Misc,
     LoadButton,
-    LockIcon,
   },
 
   methods: {

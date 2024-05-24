@@ -1,6 +1,6 @@
 export default [
   {
-    path: '/admin/nao-autorizado',
+    path: '/nao-autorizado',
     name: 'misc-not-authorized',
     component: () => import('@/views/pages/miscellaneous/components/NotAuthorized.vue'),
     meta: {
@@ -9,7 +9,7 @@ export default [
   },
 
   {
-    path: '/admin/nao-habilitado',
+    path: '/nao-habilitado',
     name: 'misc-not-enabled',
     component: () => import('@/views/pages/miscellaneous/components/NotEnabled.vue'),
     meta: {
@@ -18,7 +18,7 @@ export default [
   },
 
   {
-    path: '/admin/sessao-expirada',
+    path: '/sessao-expirada',
     name: 'disconnected',
     component: () => import('@/views/pages/miscellaneous/components/Disconnected.vue'),
     meta: {
@@ -27,7 +27,7 @@ export default [
   },
 
   {
-    path: '/admin/pagina-nao-encontrada',
+    path: '/pagina-nao-encontrada',
     name: 'error-404',
     component: () => import('@/views/pages/miscellaneous/components/Error404.vue'),
     meta: {

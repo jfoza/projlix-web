@@ -1,7 +1,7 @@
 <template>
-  <custom-misc>
+  <Misc>
     <span class="icon-page-misc mb-2">
-      <CoffeeIcon />
+      <feather-icon icon="CoffeeIcon" />
     </span>
 
     <div class="text-center mb-1">
@@ -17,19 +17,17 @@
       message="Ir para o login"
       @action="handleRedirectToLogin"
     />
-  </custom-misc>
+  </Misc>
 </template>
 
 <script>
-import CustomMisc from '@/views/components/custom/CustomMisc'
-import LoadButton from "@/views/components/custom/buttons/LoadButton.vue"
-import { CoffeeIcon } from 'vue-feather-icons'
+import LoadButton from '@/views/components/custom/buttons/LoadButton.vue'
+import Misc from '@/views/pages/miscellaneous/components/Misc.vue'
 
 export default {
   components: {
-    CustomMisc,
+    Misc,
     LoadButton,
-    CoffeeIcon,
   },
 
   methods: {
