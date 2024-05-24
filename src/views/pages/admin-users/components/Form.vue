@@ -15,7 +15,7 @@
             <validation-provider
               #default="{ errors }"
               name="Nome"
-              rules="required|noSpecialChars"
+              rules="required"
             >
               <b-form-input
                 id="name"
@@ -175,7 +175,6 @@ import {
   email,
   password,
   confirmed,
-  noSpecialChars,
 } from '@validations'
 import { createUser, updateUser } from '@/views/pages/admin-users/api'
 import { statusForm } from '@core/utils/statusForm'
@@ -213,7 +212,6 @@ export default {
       email,
       password,
       confirmed,
-      noSpecialChars,
 
       statusForm,
       titlePage: '',

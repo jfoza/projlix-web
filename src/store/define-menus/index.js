@@ -3,6 +3,7 @@ import projects from '@/navigation/vertical/menus/projects'
 import notes from '@/navigation/vertical/menus/notes'
 import adminUsers from '@/navigation/vertical/menus/admins'
 import teamUsers from '@/navigation/vertical/menus/team'
+import tags from '@/navigation/vertical/menus/tags'
 
 export default {
   namespaced: true,
@@ -13,6 +14,7 @@ export default {
       ...notes,
       ...adminUsers,
       ...teamUsers,
+      ...tags,
     ],
   },
   getters: {

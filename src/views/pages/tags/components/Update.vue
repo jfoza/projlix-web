@@ -7,7 +7,7 @@
       variant="transparent"
     >
       <page-header
-        screen-name="Editar Usuário"
+        screen-name="Editar Tag"
         :link-items="linkItems"
       />
 
@@ -28,7 +28,7 @@ import { warningMessage } from '@/libs/alerts/sweetalerts'
 import { formActions } from '@core/utils/formActions'
 import { messages } from '@core/utils/validations/messages'
 import { BOverlay } from 'bootstrap-vue'
-import { getTeamUserId } from '@/views/pages/team-users/api'
+import { getTagId } from '@/views/pages/tags/api'
 import Form from './Form.vue'
 
 export default {
@@ -42,11 +42,11 @@ export default {
     return {
       linkItems: [
         {
-          name: 'Gerenciar Usuários',
-          routeName: 'team-users',
+          name: 'Gerenciar Tags',
+          routeName: 'tags',
         },
         {
-          name: 'Editar Usuário',
+          name: 'Editar Tag',
           active: true,
         },
         {
@@ -62,41 +62,38 @@ export default {
   },
 
   computed: {
-    getChooseTeamUser() {
-      return this.$store.getters['teamUsers/getChooseTeamUser']
+    getChooseItemStore() {
+      return this.$store.getters['tags/getChooseTag']
     },
   },
 
   created() {
-    if (!this.getChooseTeamUser.user.id) {
+    if (!this.getChooseItemStore.id) {
       this.redirectToMainPage()
 
       return false
     }
 
-    return this.handleGetChooseTeamUser()
+    return this.handleGetChooseItemStore()
   },
 
   methods: {
-    async handleGetChooseTeamUser() {
+    async handleGetChooseItemStore() {
       this.setLoading(true)
 
-      await getTeamUserId(this.getChooseTeamUser.user.id)
+      await getTagId(this.getChooseItemStore.id)
         .then(response => {
           const {
-            user,
-            projects,
+            id,
+            name,
           } = response.data
 
-          this.$store.commit('teamUsers/setFormData', {
-            id: user.id,
-            name: user.name,
-            email: user.email,
-            profile: user.profile.length > 0 ? user.profile[0] : null,
-            projects,
+          this.$store.commit('tags/setFormData', {
+            id,
+            name,
           })
 
-          this.linkItems[2].name = this.$store.getters['teamUsers/getFormData'].name
+          this.linkItems[2].name = this.$store.getters['tags/getFormData'].name
         })
         .catch(() => {
           warningMessage(messages.impossible)
@@ -106,9 +103,9 @@ export default {
     },
 
     redirectToMainPage() {
-      this.$store.commit('teamUsers/clearFormData')
-      this.$store.commit('teamUsers/clearChooseTeamUser')
-      this.$router.replace({ name: 'team-users' })
+      this.$store.commit('tags/clearFormData')
+      this.$store.commit('tags/clearChooseTag')
+      this.$router.replace({ name: 'tags' })
     },
 
     setLoading(loading) {

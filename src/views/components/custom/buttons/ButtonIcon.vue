@@ -45,6 +45,7 @@ export default {
         color: this.color,
         backgroundColor: 'transparent',
         padding: 0,
+        margin: '.2rem',
         border: 'none',
       }
     },

@@ -15,98 +15,12 @@
             <validation-provider
               #default="{ errors }"
               name="Nome"
-              rules="required"
+              rules="required|noSpecialChars"
             >
               <b-form-input
                 id="name"
                 v-model="getFormData.name"
                 autocomplete="off"
-              />
-
-              <small class="text-danger">{{ errors[0] }}</small>
-            </validation-provider>
-          </b-form-group>
-        </b-col>
-
-        <b-col
-          sm="6"
-          lg="4"
-        >
-          <b-form-group
-            label="E-mail"
-            label-for="email"
-          >
-            <validation-provider
-              #default="{ errors }"
-              name="E-mail"
-              rules="required|email"
-            >
-              <b-form-input
-                id="email"
-                v-model="getFormData.email"
-                placeholder="email@email.com"
-                autocomplete="off"
-                type="email"
-              />
-
-              <small class="text-danger">{{ errors[0] }}</small>
-            </validation-provider>
-          </b-form-group>
-        </b-col>
-
-        <b-col
-          sm="6"
-          lg="4"
-        >
-          <b-form-group
-            label="Perfil"
-            label-for="profile"
-          >
-            <validation-provider
-              #default="{ errors }"
-              name="Perfil"
-              rules="required"
-            >
-              <v-select
-                id="profile"
-                v-model="getFormData.profile"
-                :options="profiles"
-                variant="custom"
-                item-text="description"
-                item-value="id"
-                placeholder="Selecione um perfil"
-                label="description"
-              />
-
-              <small class="text-danger">{{ errors[0] }}</small>
-            </validation-provider>
-
-          </b-form-group>
-        </b-col>
-
-        <b-col
-          sm="6"
-          lg="4"
-        >
-          <b-form-group
-            label="Projetos"
-            label-for="projects"
-          >
-            <validation-provider
-              #default="{ errors }"
-              name="Projetos"
-              rules="required"
-            >
-              <v-select
-                id="projects"
-                v-model="getFormData.projects"
-                :options="projects"
-                variant="custom"
-                item-text="name"
-                item-value="id"
-                placeholder="Selecione um ou mais"
-                label="name"
-                :multiple="true"
               />
 
               <small class="text-danger">{{ errors[0] }}</small>
@@ -125,7 +39,7 @@
             <feather-icon
               icon="CheckIcon"
             />
-            Salvar usuário
+            Salvar tag
           </ButtonForm>
 
           <ButtonOutlineForm
@@ -153,9 +67,6 @@ import {
 import { ValidationObserver, ValidationProvider } from 'vee-validate'
 import {
   required,
-  email,
-  password,
-  confirmed,
 } from '@validations'
 import { statusForm } from '@core/utils/statusForm'
 import { formActions } from '@core/utils/formActions'
@@ -163,15 +74,10 @@ import { messages } from '@core/utils/validations/messages'
 import ButtonForm from '@/views/components/custom/buttons/ButtonForm.vue'
 import ButtonOutlineForm from '@/views/components/custom/buttons/ButtonOutlineForm.vue'
 import { toastSuccess, toastWarning } from '@/libs/alerts/toast'
-import vSelect from 'vue-select'
-import { getAllProjects } from '@/views/pages/projects/api/projects'
-import { getAllProfiles } from '@/views/pages/admin-users/api'
-import { createTeamUser, updateTeamUser } from '@/views/pages/team-users/api'
-import { getArrayAttr } from '@core/utils/utils'
+import { createTag, updateTag } from '@/views/pages/tags/api'
 
 export default {
   components: {
-    vSelect,
     ButtonOutlineForm,
     ButtonForm,
     ValidationProvider,
@@ -193,9 +99,6 @@ export default {
   data() {
     return {
       required,
-      email,
-      password,
-      confirmed,
 
       statusForm,
       titlePage: '',
@@ -216,31 +119,11 @@ export default {
     },
 
     getFormData() {
-      return this.$store.getters['teamUsers/getFormData']
+      return this.$store.getters['tags/getFormData']
     },
-  },
-
-  mounted() {
-    this.index()
   },
 
   methods: {
-    async index() {
-      this.setLoading(true)
-
-      await getAllProjects()
-        .then(response => {
-          this.projects = response.data
-        })
-
-      await getAllProfiles({ profileType: 'OPERATIONAL' })
-        .then(response => {
-          this.profiles = response.data
-        })
-
-      this.setLoading(false)
-    },
-
     async formSubmit() {
       const result = new Promise((resolve, reject) => {
         this.$refs.formUser.validate()
@@ -261,25 +144,22 @@ export default {
 
     async core() {
       if (this.getMode === this.formActions.insertAction) {
-        await this.handleCreateUser()
+        await this.handleCreateTag()
       }
 
       if (this.getMode === this.formActions.updateAction) {
-        await this.handleUpdateUser()
+        await this.handleUpdateTag()
       }
     },
 
-    async handleCreateUser() {
+    async handleCreateTag() {
       this.setLoading(true)
 
       const formData = {
         name: this.getFormData.name,
-        email: this.getFormData.email,
-        profileId: this.getFormData.profile.id,
-        projectsId: getArrayAttr(this.getFormData.projects, 'id'),
       }
 
-      await createTeamUser(formData)
+      await createTag(formData)
         .then(response => {
           if (response.status === 201) {
             this.clear()
@@ -294,19 +174,16 @@ export default {
       this.setLoading(false)
     },
 
-    async handleUpdateUser() {
+    async handleUpdateTag() {
       this.setLoading(true)
 
       const { id } = this.getFormData
 
       const formData = {
         name: this.getFormData.name,
-        email: this.getFormData.email,
-        profileId: this.getFormData.profile.id,
-        projectsId: getArrayAttr(this.getFormData.projects, 'id'),
       }
 
-      await updateTeamUser(id, formData)
+      await updateTag(id, formData)
         .then(response => {
           if (response.status === 200) {
             this.clear()
@@ -340,9 +217,9 @@ export default {
     },
 
     clear() {
-      this.$store.commit('teamUsers/clearChooseTeamUser')
+      this.$store.commit('tags/clearChooseTag')
 
-      this.$router.replace({ name: 'team-users' })
+      this.$router.replace({ name: 'tags' })
     },
   },
 }

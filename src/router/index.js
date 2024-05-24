@@ -6,6 +6,7 @@ import { canNavigate } from '@/libs/acl/routeProtection'
 import { getHomeRouteForLoggedInUser, getUserData, isUserLoggedIn } from '@/auth/utils'
 import adminUsers from '@/views/pages/admin-users/routes'
 import teamUsers from '@/views/pages/team-users/routes'
+import tags from '@/views/pages/tags/routes'
 import auth from '@/views/pages/authentication/routes'
 import notes from '@/views/pages/notes/routes'
 import projects from '@/views/pages/projects/routes'
@@ -29,6 +30,7 @@ const router = new VueRouter({
     ...notes,
     ...adminUsers,
     ...teamUsers,
+    ...tags,
     {
       path: '*',
       redirect: { name: 'error-404' },

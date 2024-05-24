@@ -5,6 +5,7 @@ export const subjects = {
   TEAM_USERS: 'TEAM_USERS',
   PROJECTS: 'PROJECTS',
   NOTES: 'NOTES',
+  TAGS: 'TAGS',
 }
 
 export const actions = {

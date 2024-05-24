@@ -17,4 +17,8 @@ export default {
   teamUsers: '/team-users',
   teamUserId: id => `/team-users/id/${id}`,
   teamUserStatus: id => `/team-users/status/${id}`,
+
+  tags: '/tags',
+  tagId: id => `/tags/id/${id}`,
+  tagStatus: id => `/tags/status/${id}`,
 }

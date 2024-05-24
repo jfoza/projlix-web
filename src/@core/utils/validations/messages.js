@@ -32,5 +32,11 @@ export const messages = {
     value: 'Essa ação irá afetar o acesso deste usuário ao sistema.',
   },
 
+  confirmUpdateTagStatus: {
+    title1: 'Tem certeza que deseja inativar ?',
+    title2: 'Tem certeza que deseja ativar ?',
+    value: 'Essa ação irá afetar o uso deste registro no sistema.',
+  },
+
   countField: value => `Este campo deve conter no mínimo ${value} caracteres.`,
 }

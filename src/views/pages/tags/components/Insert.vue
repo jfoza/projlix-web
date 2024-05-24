@@ -1,7 +1,7 @@
 <template>
   <div class="content-wrapper">
     <page-header
-      screen-name="Cadastrar Novo"
+      screen-name="Cadastrar Nova"
       :link-items="linkItems"
     />
 
@@ -36,23 +36,23 @@ export default {
     return {
       linkItems: [
         {
-          name: 'Gerenciar Usuários',
-          routeName: 'team-users',
+          name: 'Gerenciar Tags',
+          routeName: 'tags',
         },
         {
-          name: 'Cadastrar Novo',
+          name: 'Cadastrar Nova',
           active: true,
         },
       ],
 
       formActions,
 
-      loading: true,
+      loading: false,
     }
   },
 
   mounted() {
-    this.$store.commit('teamUsers/clearFormData')
+    this.$store.commit('tags/clearFormData')
   },
 
   methods: {

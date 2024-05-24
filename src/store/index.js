@@ -7,6 +7,7 @@ import createPersistedState from 'vuex-persistedstate'
 import sessions from '@/views/pages/authentication/store'
 import adminUsers from '@/views/pages/admin-users/store'
 import teamUsers from '@/views/pages/team-users/store'
+import tags from '@/views/pages/tags/store'
 import projects from '@/views/pages/projects/store'
 import app from './app'
 import appConfig from './app-config'
@@ -25,6 +26,7 @@ export default new Vuex.Store({
     projects,
     adminUsers,
     teamUsers,
+    tags,
   },
   plugins: [
     createPersistedState({
@@ -32,6 +34,7 @@ export default new Vuex.Store({
         'sessions',
         'adminUsers',
         'teamUsers',
+        'tags',
       ],
     }),
   ],
