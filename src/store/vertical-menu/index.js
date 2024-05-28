@@ -19,7 +19,7 @@ export default {
   },
 
   mutations: {
-    UPDATE_VERTICAL_MENU_COLLAPSED(state, val) {
+    updateVerticalMenuCollapsed(state, val) {
       state.isVerticalMenuCollapsed = val
 
       state.isRotated = !state.isRotated

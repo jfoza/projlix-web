@@ -23,6 +23,17 @@ export const showProjectId = id => new Promise((resolve, reject) => {
     })
 })
 
+export const showProjectUniqueName = uniqueName => new Promise((resolve, reject) => {
+  axiosIns
+    .get(apiRoutes.projectUniqueName(uniqueName))
+    .then(response => {
+      resolve(response)
+    })
+    .catch(error => {
+      reject(error)
+    })
+})
+
 export const createProject = formData => new Promise((resolve, reject) => {
   axiosIns
     .post(apiRoutes.projects, formData)

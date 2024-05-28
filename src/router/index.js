@@ -10,6 +10,7 @@ import tags from '@/views/pages/tags/routes'
 import auth from '@/views/pages/authentication/routes'
 import notes from '@/views/pages/notes/routes'
 import projects from '@/views/pages/projects/routes'
+import board from '@/views/pages/board/routes'
 import misc from '@/views/pages/miscellaneous/routes'
 import home from '@/views/home/routes'
 
@@ -31,6 +32,7 @@ const router = new VueRouter({
     ...adminUsers,
     ...teamUsers,
     ...tags,
+    ...board,
     {
       path: '*',
       redirect: { name: 'error-404' },

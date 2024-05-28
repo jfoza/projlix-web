@@ -9,7 +9,8 @@ export default {
   noteId: id => `/notes/${id}`,
 
   projects: '/projects',
-  projectId: id => `/projects/${id}`,
+  projectId: id => `/projects/id/${id}`,
+  projectUniqueName: uniqueName => `/projects/unique-name/${uniqueName}`,
 
   adminUsers: '/admin-users',
   adminUserId: id => `/admin-users/id/${id}`,
@@ -21,4 +22,11 @@ export default {
   tags: '/tags',
   tagId: id => `/tags/id/${id}`,
   tagStatus: id => `/tags/status/${id}`,
+
+  sections: '/sections',
+  sectionId: id => `/sections/id/${id}`,
+  reorderSection: id => `/sections/reorder/${id}`,
+
+  icons: '/icons',
+  colors: '/colors',
 }

@@ -120,7 +120,7 @@ export default {
 
     navStyles() {
       return {
-        backgroundColor: this.$route.name === 'home' ? 'transparent' : '#28343DFF',
+        backgroundColor: this.$route.name === 'home' ? 'transparent' : '#2d363c',
       }
     },
   },

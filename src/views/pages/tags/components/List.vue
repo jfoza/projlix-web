@@ -257,7 +257,6 @@ import { messages } from '@core/utils/validations/messages'
 import { confirmAction, warningMessageUpdateStatus } from '@/libs/alerts/sweetalerts'
 import { toastSuccess, toastWarning } from '@/libs/alerts/toast'
 import { getAllTags, removeTag, updateStatusTag } from '@/views/pages/tags/api'
-import { removeProject } from '@/views/pages/projects/api/projects'
 
 export default {
   components: {

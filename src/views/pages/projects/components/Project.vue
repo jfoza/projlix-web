@@ -73,6 +73,7 @@
         <button
           type="button"
           class="btn btn-link"
+          @click="handleRedirectProjectBoard"
         >
           <feather-icon
             icon="PlusIcon"
@@ -90,10 +91,9 @@
 
 import { BAvatar, BDropdown, BDropdownItem } from 'bootstrap-vue'
 import ButtonIcon from '@/views/components/custom/buttons/ButtonIcon.vue'
-import { removeProject } from '@/views/pages/projects/api/projects'
+import { removeProject } from '@/views/pages/projects/api'
 import { messages } from '@core/utils/validations/messages'
 import { confirmAction } from '@/libs/alerts/sweetalerts'
-import ToastificationContent from '@core/components/toastification/ToastificationContent.vue'
 import { toastSuccess, toastWarning } from '@/libs/alerts/toast'
 
 export default {
@@ -118,6 +118,7 @@ export default {
         id: '',
         name: '',
         description: '',
+        uniqueName: '',
         members: [],
         teamUsers: [],
       }
@@ -126,6 +127,7 @@ export default {
         projectInfoAux.id = this.projectInfo.id
         projectInfoAux.name = this.projectInfo.name
         projectInfoAux.description = this.projectInfo.description
+        projectInfoAux.uniqueName = this.projectInfo.unique_name
         projectInfoAux.members = this.projectInfo.members
         projectInfoAux.teamUsers = this.projectInfo.team_users
       }
@@ -178,6 +180,12 @@ export default {
         })
 
       this.$store.commit('projects/setLoading', false)
+    },
+
+    handleRedirectProjectBoard() {
+      this.$store.commit('projects/setChooseProjectInNavbar', this.getProjectInfo)
+
+      this.$router.push({ path: `projetos/${this.getProjectInfo.uniqueName}/tarefas` })
     },
   },
 }

@@ -37,10 +37,10 @@ export default {
     }
   },
   created() {
-    this.$store.commit('verticalMenu/UPDATE_VERTICAL_MENU_COLLAPSED', true)
+    this.$store.commit('verticalMenu/updateVerticalMenuCollapsed', true)
   },
   destroyed() {
-    this.$store.commit('verticalMenu/UPDATE_VERTICAL_MENU_COLLAPSED', this.isVerticalMenuCollapsed)
+    this.$store.commit('verticalMenu/updateVerticalMenuCollapsed', this.isVerticalMenuCollapsed)
   },
 }
 </script>

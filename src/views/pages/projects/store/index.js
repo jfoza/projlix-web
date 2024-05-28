@@ -1,5 +1,5 @@
 /* eslint-disable no-shadow */
-import { getAllProjects, showProjectId } from '@/views/pages/projects/api/projects'
+import { getAllProjects, showProjectId } from '@/views/pages/projects/api'
 
 const state = {
   showModalForm: false,
@@ -10,18 +10,41 @@ const state = {
 
   projects: [],
 
-  project: {
+  formData: {
     id: '',
     name: '',
+    description: '',
+  },
+
+  chooseProjectInNavbar: {
+    id: '',
+    name: '',
+    uniqueName: '',
     description: '',
   },
 }
 
 const mutations = {
-  setProject(state, project) {
+  setChooseProjectInNavbar(state, project) {
+    const {
+      id,
+      name,
+      uniqueName,
+      description,
+    } = project
+
+    state.chooseProjectInNavbar = {
+      id,
+      name,
+      uniqueName,
+      description,
+    }
+  },
+
+  setFormData(state, project) {
     const { id, name, description } = project
 
-    state.project = {
+    state.formData = {
       id,
       name,
       description,
@@ -47,7 +70,7 @@ const mutations = {
   clear(state) {
     state.showModalForm = false
 
-    state.project = {
+    state.formData = {
       id: '',
       name: '',
       description: '',
@@ -72,7 +95,7 @@ const actions = {
 
     await showProjectId(id)
       .then(response => {
-        commit('setProject', response.data)
+        commit('setFormData', response.data)
       })
 
     commit('setLoading', false)
@@ -81,8 +104,8 @@ const actions = {
 
 const getters = {
   getProjects: state => state.projects,
-  getProject: state => state.project,
-  getShowModalForm: state => state.showModalForm,
+  getChooseProjectInNavbar: state => state.chooseProjectInNavbar,
+  getFormData: state => state.formData,
   getLoading: state => state.loading,
   getMode: state => state.mode,
 }

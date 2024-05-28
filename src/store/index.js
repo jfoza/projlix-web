@@ -4,15 +4,18 @@ import Vuex from 'vuex'
 
 // Modules
 import createPersistedState from 'vuex-persistedstate'
+
 import sessions from '@/views/pages/authentication/store'
 import adminUsers from '@/views/pages/admin-users/store'
 import teamUsers from '@/views/pages/team-users/store'
 import tags from '@/views/pages/tags/store'
 import projects from '@/views/pages/projects/store'
-import app from './app'
-import appConfig from './app-config'
-import verticalMenu from './vertical-menu'
+import board from '@/views/pages/board/store'
+
 import defineMenus from './define-menus'
+import verticalMenu from './vertical-menu'
+import appConfig from './app-config'
+import app from './app'
 
 Vue.use(Vuex)
 
@@ -27,6 +30,7 @@ export default new Vuex.Store({
     adminUsers,
     teamUsers,
     tags,
+    board,
   },
   plugins: [
     createPersistedState({
@@ -35,6 +39,7 @@ export default new Vuex.Store({
         'adminUsers',
         'teamUsers',
         'tags',
+        'projects',
       ],
     }),
   ],

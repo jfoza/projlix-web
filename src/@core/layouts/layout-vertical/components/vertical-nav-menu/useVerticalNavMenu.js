@@ -8,7 +8,7 @@ export default function useVerticalNavMenu(props) {
   const isVerticalMenuCollapsed = computed({
     get: () => store.state.verticalMenu.isVerticalMenuCollapsed,
     set: val => {
-      store.commit('verticalMenu/UPDATE_VERTICAL_MENU_COLLAPSED', val)
+      store.commit('verticalMenu/updateVerticalMenuCollapsed', val)
     },
   })
 

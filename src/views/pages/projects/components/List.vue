@@ -49,11 +49,10 @@
     </b-row>
 
     <b-modal
-      v-model="getShowModalForm"
+      v-model="$store.state.projects.showModalForm"
       centered
       hide-footer
       size="md"
-      :hide-header-close="true"
       :title="getMode === 'update' ? 'Editar projeto' : 'Novo projeto'"
     >
       <Form />
@@ -72,6 +71,7 @@ import PageHeader from '@/views/components/custom/PageHeader.vue'
 import moment from 'moment'
 import Project from '@/views/pages/projects/components/Project.vue'
 import Form from '@/views/pages/projects/components/Form.vue'
+import { mapState } from 'vuex'
 
 export default {
   components: {
@@ -114,12 +114,20 @@ export default {
       return this.$store.getters['projects/getMode']
     },
 
-    getShowModalForm() {
-      return this.$store.getters['projects/getShowModalForm']
-    },
-
     getLoading() {
       return this.$store.getters['projects/getLoading']
+    },
+
+    ...mapState({
+      showModalForm: state => state.projects.showModalForm,
+    }),
+  },
+
+  watch: {
+    showModalForm(val) {
+      if (!val) {
+        this.$store.commit('projects/clear')
+      }
     },
   },
 

@@ -2,7 +2,7 @@
 
 * {
   scrollbar-width: thin;
-  scrollbar-color: #EFEFEF transparent;
+  scrollbar-color: $bg-200 transparent;
 }
 
 *::-webkit-scrollbar {
@@ -87,7 +87,7 @@ body.dark-layout {
 }
 
 .vertical-layout.vertical-menu-modern.menu-expanded .main-menu {
-  width: 320px !important;
+  width: $sidebar-menu-width !important;
 }
 
 .header-navbar.floating-nav {

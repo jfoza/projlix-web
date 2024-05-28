@@ -180,7 +180,7 @@ export default {
   methods: {
     setMenuCollapse() {
       this.$store.commit(
-        'verticalMenu/UPDATE_VERTICAL_MENU_COLLAPSED',
+        'verticalMenu/updateVerticalMenuCollapsed',
         !this.getIsVerticalMenuCollapsed,
       )
     },

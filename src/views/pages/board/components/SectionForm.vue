@@ -3,7 +3,7 @@
     ref="formItems"
   >
     <div
-      v-if="getLoading"
+      v-if="loading"
       class="spinner-area"
     >
       <b-spinner
@@ -13,12 +13,12 @@
     </div>
 
     <b-form
-      v-if="!getLoading"
-      class="p-1"
+      v-if="!loading"
     >
       <b-row>
         <b-col
           cols="12"
+          class="mb-2"
         >
           <b-form-group
             label="Nome"
@@ -34,6 +34,7 @@
                 v-model="getFormData.name"
                 :state="errors.length > 0 ? false : null"
                 autocomplete="off"
+                placeholder="Nome da seção"
               />
 
               <small class="text-danger">{{ errors[0] }}</small>
@@ -43,16 +44,28 @@
 
         <b-col
           cols="12"
+          class="mb-2"
         >
           <b-form-group
-            label="Descrição"
-            label-for="description"
+            label="Ícone de seção"
+            label-for="icon"
           >
-            <b-form-textarea
-              id="description"
-              v-model="getFormData.description"
-              autocomplete="off"
-              rows="3"
+            <FeatherIcons
+              ref="featherIcons"
+              height="198px"
+            />
+          </b-form-group>
+        </b-col>
+
+        <b-col
+          cols="12"
+        >
+          <b-form-group
+            label="Cor de seção"
+            label-for="color"
+          >
+            <Colors
+              ref="colors"
             />
           </b-form-group>
         </b-col>
@@ -71,7 +84,7 @@
           <ButtonForm
             @action="formSubmit"
           >
-            {{ textButton }}
+            Salvar
           </ButtonForm>
         </b-col>
       </b-row>
@@ -87,7 +100,6 @@ import {
   BForm,
   BFormGroup,
   BFormInput,
-  BFormTextarea,
   BSpinner,
 } from 'bootstrap-vue'
 import { ValidationObserver, ValidationProvider } from 'vee-validate'
@@ -95,13 +107,18 @@ import {
   required,
 } from '@validations'
 import { messages } from '@core/utils/validations/messages'
-import { createProject, updateProject } from '@/views/pages/projects/api'
+import { updateProject } from '@/views/pages/projects/api'
 import ButtonForm from '@/views/components/custom/buttons/ButtonForm.vue'
 import ButtonOutlineForm from '@/views/components/custom/buttons/ButtonOutlineForm.vue'
 import { toastSuccess, toastWarning } from '@/libs/alerts/toast'
+import FeatherIcons from '@/views/pages/icons/components/FeatherIcons.vue'
+import Colors from '@/views/pages/colors/components/Colors.vue'
+import { createSection } from '@/views/pages/sections/api'
 
 export default {
   components: {
+    Colors,
+    FeatherIcons,
     ButtonOutlineForm,
     ButtonForm,
     BSpinner,
@@ -112,47 +129,32 @@ export default {
     BForm,
     BFormGroup,
     BFormInput,
-    BFormTextarea,
-  },
-
-  props: {
-    mode: {
-      type: String,
-      default: 'insert',
-    },
   },
 
   data() {
     return {
       required,
-      titlePage: '',
 
-      textButton: '',
+      loading: false,
     }
   },
 
   computed: {
-    getMode() {
-      return this.$store.getters['projects/getMode']
-    },
-
     getFormData() {
-      return this.$store.getters['projects/getFormData']
+      return this.$store.getters['board/getSectionFormData']
     },
 
-    getLoading() {
-      return this.$store.getters['projects/getLoading']
+    getChooseProjectInNavbar() {
+      return this.$store.getters['projects/getChooseProjectInNavbar']
+    },
+
+    getMode() {
+      return this.$store.getters['board/getFormMode']
     },
   },
 
   mounted() {
-    if (this.getMode === 'insert') {
-      this.textButton = 'Criar projeto'
-    }
 
-    if (this.getMode === 'update') {
-      this.textButton = 'Editar projeto'
-    }
   },
 
   methods: {
@@ -185,18 +187,19 @@ export default {
     },
 
     async handleCreate() {
-      this.$store.commit('projects/setLoading', true)
+      this.$store.commit('board/setLoadingBoardPage', true)
 
       const formData = {
         name: this.getFormData.name,
-        description: this.getFormData.description,
+        projectId: this.getChooseProjectInNavbar.id,
+        iconId: this.$refs.featherIcons.selectedIcon.id,
+        colorId: this.$refs.colors.selectedColor.id,
       }
 
-      await createProject(formData)
+      await createSection(formData)
         .then(response => {
-          if (response.status === 200) {
-            this.clear()
-            this.findAll()
+          if (response.status === 201) {
+            this.handleFindAllSectionsAndClearForm()
             toastSuccess(messages.successSave)
           }
         })
@@ -204,11 +207,11 @@ export default {
           this.handleError(error.response)
         })
 
-      this.$store.commit('projects/setLoading', false)
+      this.$store.commit('board/setLoadingBoardPage', false)
     },
 
     async handleUpdate() {
-      this.$store.commit('projects/setLoading', true)
+      this.$store.commit('board/setLoadingBoardPage', true)
 
       const { id } = this.getFormData
 
@@ -220,8 +223,7 @@ export default {
       await updateProject(id, formData)
         .then(response => {
           if (response.status === 200) {
-            this.clear()
-            this.findAll()
+            this.handleFindAllSectionsAndClearForm()
             toastSuccess(messages.successSave)
           }
         })
@@ -229,7 +231,7 @@ export default {
           this.handleError(error.response)
         })
 
-      this.$store.commit('projects/setLoading', false)
+      this.$store.commit('board/setLoadingBoardPage', false)
     },
 
     handleError(response) {
@@ -243,29 +245,25 @@ export default {
     },
 
     cancel() {
-      this.$store.commit('projects/clear')
+      this.$store.commit('board/clear')
 
-      this.$store.commit('projects/setShowModalForm', false)
+      this.$store.commit('board/setShowSectionModalForm', false)
     },
 
-    async findAll() {
-      await this.$store.dispatch('projects/findAll')
-    },
+    async handleFindAllSectionsAndClearForm() {
+      this.$store.commit('board/clear')
 
-    clear() {
-      this.$store.commit('projects/clear')
+      this.$store.commit('board/setShowSectionModalForm', false)
 
-      this.$store.commit('projects/setShowModalForm', false)
+      await this.$store.dispatch(
+        'board/findAll',
+        { projectUniqueName: this.getChooseProjectInNavbar.uniqueName },
+      )
     },
   },
 }
 </script>
 
 <style lang="scss" scoped>
-@media(max-width: 400px) {
-  .button-custom-size {
-    width: 100%;
-    margin-bottom: 1rem;
-  }
-}
+
 </style>
