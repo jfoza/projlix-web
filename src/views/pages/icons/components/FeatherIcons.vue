@@ -1,14 +1,14 @@
 <template>
   <div>
     <div
-      v-if="loading"
+      v-if="getLoading"
       class="spinner-area"
     >
       <b-spinner />
     </div>
 
     <section
-      v-if="!loading"
+      v-if="!getLoading"
       id="feather-icons"
       :style="getStyles"
       class="feather-icons"
@@ -18,10 +18,10 @@
         class="feather-icons-container"
       >
         <b-card
-          v-for="icon in icons"
+          v-for="icon in getIcons"
           :key="icon.id"
           v-b-tooltip.hover.top="icon.name"
-          :class="{ 'selected-card': selectedIcon.id === icon.id }"
+          :class="{ 'selected-card': getSelectedIcon.id === icon.id }"
           @click="handleSelectSectionIcon(icon)"
         >
           <div class="icon-wrapper">
@@ -42,10 +42,8 @@ import {
   BSpinner,
   VBTooltip,
 } from 'bootstrap-vue'
-import { getAllIcons } from '@/views/pages/icons/api'
 
 export default {
-
   components: {
     BCard,
     BSpinner,
@@ -63,13 +61,7 @@ export default {
   },
 
   data() {
-    return {
-      icons: [],
-
-      selectedIcon: { id: '' },
-
-      loading: true,
-    }
+    return {}
   },
 
   computed: {
@@ -78,26 +70,39 @@ export default {
         height: this.height,
       }
     },
+
+    getIcons() {
+      return this.$store.getters['icons/getIcons']
+    },
+
+    getSelectedIcon() {
+      return this.$store.getters['icons/getSelectedIcon']
+    },
+
+    getLoading() {
+      return this.$store.getters['icons/getLoading']
+    },
   },
 
   mounted() {
-    this.handleFindAllIcons()
+    this.index()
   },
 
   methods: {
-    handleSelectSectionIcon(icon) {
-      this.selectedIcon = icon
+    async index() {
+      await this.$store.dispatch('icons/findAll')
+
+      if (!this.getSelectedIcon.id) {
+        const defaultIcon = this.getIcons.find(icon => icon.name === 'ActivityIcon')
+
+        if (defaultIcon) {
+          this.$store.commit('icons/setSelectedIcon', defaultIcon)
+        }
+      }
     },
 
-    async handleFindAllIcons() {
-      this.loading = true
-
-      await getAllIcons()
-        .then(response => {
-          this.icons = response.data
-        })
-
-      this.loading = false
+    handleSelectSectionIcon(icon) {
+      this.$store.commit('icons/setSelectedIcon', icon)
     },
   },
 }

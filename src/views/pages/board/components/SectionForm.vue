@@ -31,7 +31,7 @@
             >
               <b-form-input
                 id="name"
-                v-model="getFormData.name"
+                v-model="getSectionFormData.name"
                 :state="errors.length > 0 ? false : null"
                 autocomplete="off"
                 placeholder="Nome da seção"
@@ -107,13 +107,12 @@ import {
   required,
 } from '@validations'
 import { messages } from '@core/utils/validations/messages'
-import { updateProject } from '@/views/pages/projects/api'
 import ButtonForm from '@/views/components/custom/buttons/ButtonForm.vue'
 import ButtonOutlineForm from '@/views/components/custom/buttons/ButtonOutlineForm.vue'
 import { toastSuccess, toastWarning } from '@/libs/alerts/toast'
 import FeatherIcons from '@/views/pages/icons/components/FeatherIcons.vue'
 import Colors from '@/views/pages/colors/components/Colors.vue'
-import { createSection } from '@/views/pages/sections/api'
+import { createSection, updateSection } from '@/views/pages/sections/api'
 
 export default {
   components: {
@@ -140,7 +139,7 @@ export default {
   },
 
   computed: {
-    getFormData() {
+    getSectionFormData() {
       return this.$store.getters['board/getSectionFormData']
     },
 
@@ -151,10 +150,14 @@ export default {
     getMode() {
       return this.$store.getters['board/getFormMode']
     },
-  },
 
-  mounted() {
+    getSelectedIcon() {
+      return this.$store.getters['icons/getSelectedIcon']
+    },
 
+    getSelectedColor() {
+      return this.$store.getters['colors/getSelectedColor']
+    },
   },
 
   methods: {
@@ -190,10 +193,10 @@ export default {
       this.$store.commit('board/setLoadingBoardPage', true)
 
       const formData = {
-        name: this.getFormData.name,
+        name: this.getSectionFormData.name,
         projectId: this.getChooseProjectInNavbar.id,
-        iconId: this.$refs.featherIcons.selectedIcon.id,
-        colorId: this.$refs.colors.selectedColor.id,
+        iconId: this.getSelectedIcon.id,
+        colorId: this.getSelectedColor.id,
       }
 
       await createSection(formData)
@@ -213,14 +216,15 @@ export default {
     async handleUpdate() {
       this.$store.commit('board/setLoadingBoardPage', true)
 
-      const { id } = this.getFormData
+      const { id } = this.getSectionFormData
 
       const formData = {
-        name: this.getFormData.name,
-        description: this.getFormData.description,
+        name: this.getSectionFormData.name,
+        iconId: this.getSelectedIcon.id,
+        colorId: this.getSelectedColor.id,
       }
 
-      await updateProject(id, formData)
+      await updateSection(id, formData)
         .then(response => {
           if (response.status === 200) {
             this.handleFindAllSectionsAndClearForm()
@@ -251,19 +255,11 @@ export default {
     },
 
     async handleFindAllSectionsAndClearForm() {
-      this.$store.commit('board/clear')
-
-      this.$store.commit('board/setShowSectionModalForm', false)
-
       await this.$store.dispatch(
-        'board/findAll',
+        'board/findAllSectionsAndClearForm',
         { projectUniqueName: this.getChooseProjectInNavbar.uniqueName },
       )
     },
   },
 }
 </script>
-
-<style lang="scss" scoped>
-
-</style>

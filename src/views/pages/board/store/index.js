@@ -1,6 +1,6 @@
 /* eslint-disable no-shadow */
 
-import { getAllSectionsByProject } from '@/views/pages/sections/api'
+import { getAllSectionsByProject, getSectionId } from '@/views/pages/sections/api'
 
 const state = {
   showSectionModalForm: false,
@@ -16,6 +16,7 @@ const state = {
     color: null,
     icon: null,
     name: '',
+    id: '',
   },
 }
 
@@ -26,6 +27,16 @@ const mutations = {
 
   setFormMode(state, mode) {
     state.formMode = mode
+  },
+
+  setSectionFormData(state, sectionFormData) {
+    const {
+      id, name, icon, color, project,
+    } = sectionFormData
+
+    state.sectionFormData = {
+      id, name, icon, color, project,
+    }
   },
 
   setLoadingBoardPage(state, loadingBoardPage) {
@@ -42,6 +53,7 @@ const mutations = {
       color: null,
       icon: null,
       name: '',
+      id: '',
     }
   },
 }
@@ -57,10 +69,27 @@ const actions = {
 
     commit('setLoadingBoardPage', false)
   },
+
+  async findOne({ commit }, id) {
+    commit('setLoadingBoardPage', true)
+
+    await getSectionId(id)
+      .then(response => {
+        commit('setSectionFormData', response.data)
+      })
+
+    commit('setLoadingBoardPage', false)
+  },
+
+  async findAllSectionsAndClearForm({ commit, dispatch }, params) {
+    commit('clear')
+    commit('setShowSectionModalForm', false)
+
+    await dispatch('findAll', params)
+  },
 }
 
 const getters = {
-  getSections: state => state.sections,
   getFormMode: state => state.formMode,
   getLoadingBoardPage: state => state.loadingBoardPage,
   getSectionFormData: state => state.sectionFormData,

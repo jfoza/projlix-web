@@ -12,6 +12,17 @@ export const getAllSectionsByProject = params => new Promise((resolve, reject) =
     })
 })
 
+export const getSectionId = id => new Promise((resolve, reject) => {
+  axiosIns
+    .get(apiRoutes.sectionId(id))
+    .then(response => {
+      resolve(response)
+    })
+    .catch(error => {
+      reject(error)
+    })
+})
+
 export const createSection = formData => new Promise((resolve, reject) => {
   axiosIns
     .post(apiRoutes.sections, formData)

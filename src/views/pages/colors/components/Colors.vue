@@ -1,22 +1,22 @@
 <template>
   <div>
     <div
-      v-if="loading"
+      v-if="getLoading"
       class="spinner-area"
     >
       <b-spinner />
     </div>
 
     <section
-      v-if="!loading"
+      v-if="!getLoading"
       class="colors-container"
     >
       <div
-        v-for="color in colors"
+        v-for="color in getColors"
         :key="color.id"
         v-b-tooltip.hover.top="color.name"
         class="color-border"
-        :class="{ 'selected': selectedColor.id === color.id }"
+        :class="{ 'selected': getSelectedColor.id === color.id }"
       >
         <div
           :style="{ backgroundColor: color.hexadecimal }"
@@ -30,7 +30,6 @@
 
 <script>
 import { BSpinner, VBTooltip } from 'bootstrap-vue'
-import { getAllColors } from '@/views/pages/colors/api'
 
 export default {
   components: { BSpinner },
@@ -40,33 +39,42 @@ export default {
   },
 
   data() {
-    return {
-      colors: [],
+    return {}
+  },
 
-      selectedColor: { id: '' },
+  computed: {
+    getColors() {
+      return this.$store.getters['colors/getColors']
+    },
 
-      loading: true,
-    }
+    getSelectedColor() {
+      return this.$store.getters['colors/getSelectedColor']
+    },
+
+    getLoading() {
+      return this.$store.getters['colors/getLoading']
+    },
   },
 
   mounted() {
-    this.handleFIndAllColors()
+    this.index()
   },
 
   methods: {
-    selectColor(color) {
-      this.selectedColor = color
+    async index() {
+      await this.$store.dispatch('colors/findAll')
+
+      if (!this.getSelectedColor.id) {
+        const defaultColor = this.getColors[0]
+
+        if (defaultColor) {
+          this.$store.commit('colors/setSelectedColor', defaultColor)
+        }
+      }
     },
 
-    async handleFIndAllColors() {
-      this.loading = true
-
-      await getAllColors()
-        .then(response => {
-          this.colors = response.data
-        })
-
-      this.loading = false
+    selectColor(color) {
+      this.$store.commit('colors/setSelectedColor', color)
     },
   },
 }

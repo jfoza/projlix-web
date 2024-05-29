@@ -22,10 +22,7 @@
               :key="section.section_order"
             >
               <SectionHeader
-                :section-color-rgba="section.color.rgba"
-                :section-color-hexadecimal="section.color.hexadecimal"
-                :section-icon-name="section.icon.name"
-                :section-name="section.name"
+                :section="section"
               />
 
               <SectionContent
@@ -137,6 +134,8 @@ export default {
     showSectionModalForm(val) {
       if (!val) {
         this.$store.commit('board/clear')
+        this.$store.commit('icons/clearSelectedIcon')
+        this.$store.commit('colors/clearSelectedColor')
       }
     },
   },
