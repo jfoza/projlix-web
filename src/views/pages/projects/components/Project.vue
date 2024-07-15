@@ -3,7 +3,13 @@
     class="project-card"
   >
     <section class="project-card-title">
-      <h5>{{ getProjectInfo.name }}</h5>
+      <div class="d-flex align-items-center">
+        <feather-icon :icon="getProjectInfo.icon.name" />
+
+        <h5 class="project-name">
+          {{ getProjectInfo.name }}
+        </h5>
+      </div>
 
       <div class="dropdown">
         <b-dropdown
@@ -119,6 +125,7 @@ export default {
         name: '',
         description: '',
         uniqueName: '',
+        icon: { id: '', name: '' },
         members: [],
         teamUsers: [],
       }
@@ -128,6 +135,7 @@ export default {
         projectInfoAux.name = this.projectInfo.name
         projectInfoAux.description = this.projectInfo.description
         projectInfoAux.uniqueName = this.projectInfo.unique_name
+        projectInfoAux.icon = this.projectInfo.icon
         projectInfoAux.members = this.projectInfo.members
         projectInfoAux.teamUsers = this.projectInfo.team_users
       }
@@ -252,5 +260,9 @@ export default {
   -webkit-box-orient: vertical;
   overflow: hidden;
   text-overflow: ellipsis;
+}
+
+.project-name {
+  margin: 0 0 0 5px;
 }
 </style>

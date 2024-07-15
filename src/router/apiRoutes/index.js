@@ -13,6 +13,7 @@ export default {
   projectUniqueName: uniqueName => `/projects/unique-name/${uniqueName}`,
   projectInfo: id => `/projects/info/id/${id}`,
   projectTag: id => `/projects/tag/id/${id}`,
+  projectIcon: id => `/projects/icon/id/${id}`,
 
   adminUsers: '/admin-users',
   adminUserId: id => `/admin-users/id/${id}`,

@@ -17,7 +17,7 @@ const state = {
     name: '',
     uniqueName: '',
     description: '',
-    icon: null,
+    icon: { id: '', name: '' },
     members: [],
     tags: [],
   },
@@ -27,7 +27,7 @@ const state = {
     name: '',
     uniqueName: '',
     description: '',
-    icon: null,
+    icon: { id: '', name: '' },
     members: [],
     tags: [],
   },
@@ -98,13 +98,17 @@ const mutations = {
     state.projects = projects
   },
 
+  setProjectIcon(state, icon) {
+    state.formData.icon = icon
+  },
+
   clearProjectInNavbar(state) {
     state.formData = {
       id: '',
       name: '',
       uniqueName: '',
       description: '',
-      icon: null,
+      icon: { id: '', name: '' },
       members: [],
       tags: [],
     }
@@ -116,7 +120,7 @@ const mutations = {
       name: '',
       uniqueName: '',
       description: '',
-      icon: null,
+      icon: { id: '', name: '' },
       members: [],
       tags: [],
     }
@@ -151,6 +155,7 @@ const getters = {
   getProjects: state => state.projects,
   getChooseProjectInNavbar: state => state.chooseProjectInNavbar,
   getFormData: state => state.formData,
+  getProjectName: state => state.formData.name,
   getLoading: state => state.loading,
   getLoadingUpdate: state => state.loadingUpdate,
 }

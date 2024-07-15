@@ -57,7 +57,7 @@
             <span class="font-weight-bold">Ícone</span>
           </template>
 
-          Icon
+          <IconForm />
         </b-tab>
       </b-tabs>
     </div>
@@ -68,10 +68,12 @@
 import { BTabs, BTab } from 'bootstrap-vue'
 import GeneralDataForm from '@/views/pages/projects/components/forms/GeneralDataForm.vue'
 import Overlay from '@/views/components/custom/Overlay.vue'
-import TagsForm from "@/views/pages/projects/components/forms/TagsForm.vue";
+import TagsForm from '@/views/pages/projects/components/forms/TagsForm.vue'
+import IconForm from '@/views/pages/projects/components/forms/IconForm.vue'
 
 export default {
   components: {
+    IconForm,
     TagsForm,
     Overlay,
     GeneralDataForm,
@@ -90,10 +92,6 @@ export default {
     getLoadingUpdate() {
       return this.$store.getters['projects/getLoadingUpdate']
     },
-  },
-
-  created() {
-
   },
 
   methods: {

@@ -67,6 +67,17 @@ export const updateProjectTag = (id, formData) => new Promise((resolve, reject) 
     })
 })
 
+export const updateProjectIcon = (id, formData) => new Promise((resolve, reject) => {
+  axiosIns
+    .put(apiRoutes.projectIcon(id), formData)
+    .then(response => {
+      resolve(response)
+    })
+    .catch(error => {
+      reject(error)
+    })
+})
+
 export const removeProject = id => new Promise((resolve, reject) => {
   axiosIns
     .delete(apiRoutes.projectId(id))

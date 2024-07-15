@@ -63,7 +63,7 @@
       top
       hide-footer
       size="lg"
-      title="Editar projeto"
+      :title="getProjectName ? `Editar projeto - ${getProjectName}` : '-'"
     >
       <Update />
     </b-modal>
@@ -127,6 +127,10 @@ export default {
       return this.$store.getters['projects/getLoading']
     },
 
+    getProjectName() {
+      return this.$store.getters['projects/getProjectName']
+    },
+
     ...mapState({
       showModalFormInsert: state => state.projects.showModalFormInsert,
       showModalFormUpdate: state => state.projects.showModalFormUpdate,
@@ -169,14 +173,16 @@ export default {
   }
 
   .update-project {
-    padding: 0.8rem 1.4rem;
+    padding: 1.5rem;
   }
 
   .update-project-form {
-    min-height: 430px;
+    height: 430px;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    overflow-y: scroll;
+    overflow-x: hidden;
   }
 
   @media (max-width: 400px) {
@@ -191,6 +197,16 @@ export default {
 
     .button-plus {
       width: 100%;
+    }
+  }
+
+  @media (max-width: 992px) {
+    .update-project-form {
+      scrollbar-width: none;
+    }
+
+    .update-project-form::-webkit-scrollbar {
+      display: none;
     }
   }
 </style>

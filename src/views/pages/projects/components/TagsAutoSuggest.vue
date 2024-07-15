@@ -41,7 +41,7 @@ export default {
       inputProps: {
         id: 'autosuggest__input',
         onInputChange: this.fetchResults,
-        placeholder: 'Nome',
+        placeholder: 'Digite o nome de uma tag para vincular ao projeto',
         class: 'form-control',
         name: 'nome',
       },
