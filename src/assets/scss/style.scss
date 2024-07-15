@@ -146,6 +146,10 @@ body.dark-layout {
   background-color: $primary-100 !important;
 }
 
+.modal-body {
+  padding: 0 !important;
+}
+
 @media(max-width: 576px) {
   .button-config {
     width: 100%;

@@ -11,6 +11,8 @@ export default {
   projects: '/projects',
   projectId: id => `/projects/id/${id}`,
   projectUniqueName: uniqueName => `/projects/unique-name/${uniqueName}`,
+  projectInfo: id => `/projects/info/id/${id}`,
+  projectTag: id => `/projects/tag/id/${id}`,
 
   adminUsers: '/admin-users',
   adminUserId: id => `/admin-users/id/${id}`,

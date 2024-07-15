@@ -43,7 +43,6 @@ export default new Vuex.Store({
         'adminUsers',
         'teamUsers',
         'tags',
-        'projects',
       ],
     }),
   ],

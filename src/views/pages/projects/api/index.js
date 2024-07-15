@@ -45,9 +45,20 @@ export const createProject = formData => new Promise((resolve, reject) => {
     })
 })
 
-export const updateProject = (id, formData) => new Promise((resolve, reject) => {
+export const updateProjectInfo = (id, formData) => new Promise((resolve, reject) => {
   axiosIns
-    .put(apiRoutes.projectId(id), formData)
+    .put(apiRoutes.projectInfo(id), formData)
+    .then(response => {
+      resolve(response)
+    })
+    .catch(error => {
+      reject(error)
+    })
+})
+
+export const updateProjectTag = (id, formData) => new Promise((resolve, reject) => {
+  axiosIns
+    .put(apiRoutes.projectTag(id), formData)
     .then(response => {
       resolve(response)
     })
@@ -59,6 +70,17 @@ export const updateProject = (id, formData) => new Promise((resolve, reject) => 
 export const removeProject = id => new Promise((resolve, reject) => {
   axiosIns
     .delete(apiRoutes.projectId(id))
+    .then(response => {
+      resolve(response)
+    })
+    .catch(error => {
+      reject(error)
+    })
+})
+
+export const removeProjectTag = (id, params) => new Promise((resolve, reject) => {
+  axiosIns
+    .delete(apiRoutes.projectTag(id), { params })
     .then(response => {
       resolve(response)
     })

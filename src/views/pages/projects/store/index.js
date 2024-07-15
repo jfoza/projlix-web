@@ -2,18 +2,24 @@
 import { getAllProjects, showProjectId } from '@/views/pages/projects/api'
 
 const state = {
-  showModalForm: false,
+  showModalFormInsert: false,
+  showModalFormUpdate: false,
 
   mode: '',
 
   loading: false,
+  loadingUpdate: false,
 
   projects: [],
 
   formData: {
     id: '',
     name: '',
+    uniqueName: '',
     description: '',
+    icon: null,
+    members: [],
+    tags: [],
   },
 
   chooseProjectInNavbar: {
@@ -21,6 +27,9 @@ const state = {
     name: '',
     uniqueName: '',
     description: '',
+    icon: null,
+    members: [],
+    tags: [],
   },
 }
 
@@ -29,51 +38,87 @@ const mutations = {
     const {
       id,
       name,
-      uniqueName,
+      unique_name,
       description,
+      icon,
+      members,
+      tags,
     } = project
 
     state.chooseProjectInNavbar = {
       id,
       name,
-      uniqueName,
+      uniqueName: unique_name,
       description,
+      icon,
+      members,
+      tags,
     }
   },
 
   setFormData(state, project) {
-    const { id, name, description } = project
+    const {
+      id,
+      name,
+      unique_name,
+      description,
+      icon,
+      members,
+      tags,
+    } = project
 
     state.formData = {
       id,
       name,
+      uniqueName: unique_name,
       description,
+      icon,
+      members,
+      tags,
     }
   },
 
-  setShowModalForm(state, showModalForm) {
-    state.showModalForm = showModalForm
+  setShowModalFormInsert(state, showModalForm) {
+    state.showModalFormInsert = showModalForm
+  },
+
+  setShowModalFormUpdate(state, showModalForm) {
+    state.showModalFormUpdate = showModalForm
   },
 
   setLoading(state, loading) {
     state.loading = loading
   },
 
-  setMode(state, mode) {
-    state.mode = mode
+  setLoadingUpdate(state, loading) {
+    state.loadingUpdate = loading
   },
 
   setProjects(state, projects) {
     state.projects = projects
   },
 
-  clear(state) {
-    state.showModalForm = false
-
+  clearProjectInNavbar(state) {
     state.formData = {
       id: '',
       name: '',
+      uniqueName: '',
       description: '',
+      icon: null,
+      members: [],
+      tags: [],
+    }
+  },
+
+  clearFormData(state) {
+    state.formData = {
+      id: '',
+      name: '',
+      uniqueName: '',
+      description: '',
+      icon: null,
+      members: [],
+      tags: [],
     }
   },
 }
@@ -91,14 +136,14 @@ const actions = {
   },
 
   async findOne({ commit }, id) {
-    commit('setLoading', true)
+    commit('setLoadingUpdate', true)
 
     await showProjectId(id)
       .then(response => {
         commit('setFormData', response.data)
       })
 
-    commit('setLoading', false)
+    commit('setLoadingUpdate', false)
   },
 }
 
@@ -107,7 +152,7 @@ const getters = {
   getChooseProjectInNavbar: state => state.chooseProjectInNavbar,
   getFormData: state => state.formData,
   getLoading: state => state.loading,
-  getMode: state => state.mode,
+  getLoadingUpdate: state => state.loadingUpdate,
 }
 
 export default {

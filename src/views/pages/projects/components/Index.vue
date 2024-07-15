@@ -24,7 +24,7 @@
       >
         <b-link
           class="show-form"
-          @click="handleShowForm()"
+          @click="handleShowInsertForm()"
         >
           <feather-icon
             size="18"
@@ -49,13 +49,23 @@
     </b-row>
 
     <b-modal
-      v-model="$store.state.projects.showModalForm"
+      v-model="$store.state.projects.showModalFormInsert"
       centered
       hide-footer
       size="md"
-      :title="getMode === 'update' ? 'Editar projeto' : 'Novo projeto'"
+      title="Novo projeto"
     >
-      <Form />
+      <Insert />
+    </b-modal>
+
+    <b-modal
+      v-model="$store.state.projects.showModalFormUpdate"
+      top
+      hide-footer
+      size="lg"
+      title="Editar projeto"
+    >
+      <Update />
     </b-modal>
   </div>
 </template>
@@ -65,17 +75,20 @@ import {
   BRow,
   BCol,
   BSpinner,
-  BLink, BModal,
+  BLink,
+  BModal,
 } from 'bootstrap-vue'
 import PageHeader from '@/views/components/custom/PageHeader.vue'
 import moment from 'moment'
 import Project from '@/views/pages/projects/components/Project.vue'
-import Form from '@/views/pages/projects/components/Form.vue'
+import Insert from '@/views/pages/projects/components/Insert.vue'
+import Update from '@/views/pages/projects/components/Update.vue'
 import { mapState } from 'vuex'
 
 export default {
   components: {
-    Form,
+    Insert,
+    Update,
     BModal,
     PageHeader,
     Project,
@@ -110,23 +123,26 @@ export default {
       return this.$store.getters['projects/getProjects']
     },
 
-    getMode() {
-      return this.$store.getters['projects/getMode']
-    },
-
     getLoading() {
       return this.$store.getters['projects/getLoading']
     },
 
     ...mapState({
-      showModalForm: state => state.projects.showModalForm,
+      showModalFormInsert: state => state.projects.showModalFormInsert,
+      showModalFormUpdate: state => state.projects.showModalFormUpdate,
     }),
   },
 
   watch: {
-    showModalForm(val) {
+    showModalFormInsert(val) {
       if (!val) {
-        this.$store.commit('projects/clear')
+        this.$store.commit('projects/clearFormData')
+      }
+    },
+
+    showModalFormUpdate(val) {
+      if (!val) {
+        this.$store.commit('projects/clearFormData')
       }
     },
   },
@@ -140,18 +156,27 @@ export default {
       await this.$store.dispatch('projects/findAll')
     },
 
-    handleShowForm() {
-      this.$store.commit('projects/setMode', 'insert')
-
-      this.$store.commit('projects/setShowModalForm', true)
+    handleShowInsertForm() {
+      this.$store.commit('projects/setShowModalFormInsert', true)
     },
   },
 }
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
   .action-search {
     display: flex;
+  }
+
+  .update-project {
+    padding: 0.8rem 1.4rem;
+  }
+
+  .update-project-form {
+    min-height: 430px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
   }
 
   @media (max-width: 400px) {

@@ -79,9 +79,8 @@ export default {
     right: 0;
     bottom: 0;
     inset: 0;
-    opacity: 0.8;
-    backdrop-filter: blur(2px);
-    background-color: #161d31 !important;
+    opacity: 1;
+    backdrop-filter: blur(4px);
     border-radius: 0.428rem;
     z-index: 10;
   }

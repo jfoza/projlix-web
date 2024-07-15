@@ -138,12 +138,9 @@ export default {
 
   methods: {
     async handleGetProject() {
-      this.$store.commit('projects/setMode', 'update')
+      this.$store.commit('projects/setShowModalFormUpdate', true)
 
       await this.$store.dispatch('projects/findOne', this.getProjectInfo.id)
-        .then(() => {
-          this.$store.commit('projects/setShowModalForm', true)
-        })
     },
 
     async findAll() {
