@@ -11,7 +11,10 @@
         </h5>
       </div>
 
-      <div class="dropdown">
+      <div
+        v-if="canToUpdate || canToDelete"
+        class="dropdown"
+      >
         <b-dropdown
           variant="link"
           no-caret
@@ -25,7 +28,11 @@
               class="align-middle text-body"
             />
           </template>
-          <b-dropdown-item @click="handleGetProject">
+
+          <b-dropdown-item
+            v-if="canToUpdate"
+            @click="handleGetProject"
+          >
             <feather-icon
               icon="Edit2Icon"
             />
@@ -33,7 +40,10 @@
             Editar
           </b-dropdown-item>
 
-          <b-dropdown-item @click="openModalRemove">
+          <b-dropdown-item
+            v-if="canToDelete"
+            @click="openModalRemove"
+          >
             <feather-icon
               icon="XIcon"
             />
@@ -63,13 +73,6 @@
           class="avatar-members"
         />
       </div>
-
-      <div class="new-member">
-        <button-icon
-          size="18"
-          feather-icon="PlusIcon"
-        />
-      </div>
     </section>
 
     <section class="project-card-view">
@@ -96,16 +99,15 @@
 <script>
 
 import { BAvatar, BDropdown, BDropdownItem } from 'bootstrap-vue'
-import ButtonIcon from '@/views/components/custom/buttons/ButtonIcon.vue'
 import { removeProject } from '@/views/pages/projects/api'
 import { messages } from '@core/utils/validations/messages'
 import { confirmAction } from '@/libs/alerts/sweetalerts'
 import { toastSuccess, toastWarning } from '@/libs/alerts/toast'
+import { actions, subjects } from '@/libs/acl/rules'
 
 export default {
 
   components: {
-    ButtonIcon,
     BAvatar,
     BDropdown,
     BDropdownItem,
@@ -141,6 +143,14 @@ export default {
       }
 
       return projectInfoAux
+    },
+
+    canToUpdate() {
+      return this.$can(actions.UPDATE, subjects.PROJECTS)
+    },
+
+    canToDelete() {
+      return this.$can(actions.DELETE, subjects.PROJECTS_ADMIN_MASTER)
     },
   },
 

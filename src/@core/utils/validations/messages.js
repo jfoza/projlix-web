@@ -19,6 +19,7 @@ export const messages = {
   tokenForgotPasswordNotFound: 'Token de verificação não encontrado!',
 
   confirmDelete: 'Deseja excluir este registro ?',
+  confirmRemoveProjectTeamUser: 'Deseja remover este usuário do projeto ?',
   confirmMyStatusUpdate: 'Deseja inativar a si mesmo ?<br>Caso deseje prosseguir, seu perfil será inativado '
       + 'e você não conseguirá mais acessar o sistema até que um perfil superior modifique seu status novamente.',
   confirmDeleteUserChurch: 'Deseja remover o vínculo deste usuário com esta igreja ?',

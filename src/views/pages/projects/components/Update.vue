@@ -31,7 +31,7 @@
             <span class="font-weight-bold">Compartilhamento</span>
           </template>
 
-          Members
+          <TeamUsersForm />
         </b-tab>
 
         <b-tab>
@@ -70,9 +70,11 @@ import GeneralDataForm from '@/views/pages/projects/components/forms/GeneralData
 import Overlay from '@/views/components/custom/Overlay.vue'
 import TagsForm from '@/views/pages/projects/components/forms/TagsForm.vue'
 import IconForm from '@/views/pages/projects/components/forms/IconForm.vue'
+import TeamUsersForm from '@/views/pages/projects/components/forms/TeamUsersForm.vue'
 
 export default {
   components: {
+    TeamUsersForm,
     IconForm,
     TagsForm,
     Overlay,

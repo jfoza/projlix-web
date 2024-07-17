@@ -19,6 +19,7 @@
       v-if="!getLoading"
     >
       <b-col
+        v-if="canToInsert"
         cols="12"
         class="mt-2 mb-2"
       >
@@ -51,8 +52,8 @@
     <b-modal
       v-model="$store.state.projects.showModalFormInsert"
       centered
-      hide-footer
       size="md"
+      hide-footer
       title="Novo projeto"
     >
       <Insert />
@@ -61,8 +62,8 @@
     <b-modal
       v-model="$store.state.projects.showModalFormUpdate"
       top
-      hide-footer
       size="lg"
+      hide-footer
       :title="getProjectName ? `Editar projeto - ${getProjectName}` : '-'"
     >
       <Update />
@@ -84,6 +85,7 @@ import Project from '@/views/pages/projects/components/Project.vue'
 import Insert from '@/views/pages/projects/components/Insert.vue'
 import Update from '@/views/pages/projects/components/Update.vue'
 import { mapState } from 'vuex'
+import { actions, subjects } from '@/libs/acl/rules'
 
 export default {
   components: {
@@ -129,6 +131,10 @@ export default {
 
     getProjectName() {
       return this.$store.getters['projects/getProjectName']
+    },
+
+    canToInsert() {
+      return this.$can(actions.INSERT, subjects.PROJECTS)
     },
 
     ...mapState({
@@ -183,6 +189,10 @@ export default {
     justify-content: space-between;
     overflow-y: scroll;
     overflow-x: hidden;
+  }
+
+  .c-modal-700 {
+    width: 700px;
   }
 
   @media (max-width: 400px) {

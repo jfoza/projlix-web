@@ -145,7 +145,7 @@ export default {
     },
 
     clearAutoSuggest() {
-      this.$refs.nameAutoSuggest.chooseTag = ''
+      this.$refs.nameAutoSuggest.chooseTag = null
       this.$refs.nameAutoSuggest.results = []
       this.$refs.nameAutoSuggest.result = []
       this.$refs.nameAutoSuggest.suggestions = []

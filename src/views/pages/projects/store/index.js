@@ -18,7 +18,7 @@ const state = {
     uniqueName: '',
     description: '',
     icon: { id: '', name: '' },
-    members: [],
+    teamUsers: [],
     tags: [],
   },
 
@@ -28,7 +28,7 @@ const state = {
     uniqueName: '',
     description: '',
     icon: { id: '', name: '' },
-    members: [],
+    teamUsers: [],
     tags: [],
   },
 }
@@ -41,7 +41,7 @@ const mutations = {
       unique_name,
       description,
       icon,
-      members,
+      team_users,
       tags,
     } = project
 
@@ -51,7 +51,7 @@ const mutations = {
       uniqueName: unique_name,
       description,
       icon,
-      members,
+      teamUsers: team_users,
       tags,
     }
   },
@@ -63,7 +63,7 @@ const mutations = {
       unique_name,
       description,
       icon,
-      members,
+      team_users,
       tags,
     } = project
 
@@ -73,7 +73,7 @@ const mutations = {
       uniqueName: unique_name,
       description,
       icon,
-      members,
+      teamUsers: team_users,
       tags,
     }
   },
@@ -109,7 +109,7 @@ const mutations = {
       uniqueName: '',
       description: '',
       icon: { id: '', name: '' },
-      members: [],
+      teamUsers: [],
       tags: [],
     }
   },
@@ -121,7 +121,7 @@ const mutations = {
       uniqueName: '',
       description: '',
       icon: { id: '', name: '' },
-      members: [],
+      teamUsers: [],
       tags: [],
     }
   },

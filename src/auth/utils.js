@@ -4,8 +4,8 @@ import apiRoutes from '@/router/apiRoutes'
 
 const baseURL = process.env.VUE_APP_APP_URL
 
-const login = `${baseURL}/admin/login`
-const notAuthorized = `${baseURL}/admin/nao-autorizado`
+const login = `${baseURL}/login`
+const notAuthorized = `${baseURL}/nao-autorizado`
 
 export const clearStore = () => {
   provider.dispatch('sessions/logout').then()

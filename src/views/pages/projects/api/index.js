@@ -67,6 +67,17 @@ export const updateProjectTag = (id, formData) => new Promise((resolve, reject) 
     })
 })
 
+export const updateProjectTeamUser = (id, formData) => new Promise((resolve, reject) => {
+  axiosIns
+    .put(apiRoutes.projectTeamUser(id), formData)
+    .then(response => {
+      resolve(response)
+    })
+    .catch(error => {
+      reject(error)
+    })
+})
+
 export const updateProjectIcon = (id, formData) => new Promise((resolve, reject) => {
   axiosIns
     .put(apiRoutes.projectIcon(id), formData)
@@ -92,6 +103,17 @@ export const removeProject = id => new Promise((resolve, reject) => {
 export const removeProjectTag = (id, params) => new Promise((resolve, reject) => {
   axiosIns
     .delete(apiRoutes.projectTag(id), { params })
+    .then(response => {
+      resolve(response)
+    })
+    .catch(error => {
+      reject(error)
+    })
+})
+
+export const removeProjectTeamUser = (id, params) => new Promise((resolve, reject) => {
+  axiosIns
+    .delete(apiRoutes.projectTeamUser(id), { params })
     .then(response => {
       resolve(response)
     })

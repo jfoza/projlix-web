@@ -80,7 +80,7 @@ import {
 import { messages } from '@core/utils/validations/messages'
 import { updateProjectInfo } from '@/views/pages/projects/api'
 import ButtonForm from '@/views/components/custom/buttons/ButtonForm.vue'
-import { toastWarning } from '@/libs/alerts/toast'
+import {toastSuccess, toastWarning} from '@/libs/alerts/toast'
 
 export default {
   components: {
@@ -140,6 +140,7 @@ export default {
         .then(response => {
           if (response.status === 200) {
             this.findAll()
+            toastSuccess(messages.successSave)
           }
         })
         .catch(error => {
