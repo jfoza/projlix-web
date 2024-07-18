@@ -82,22 +82,6 @@ export default {
   },
 
   computed: {
-    getSectionColorRgba() {
-      return { backgroundColor: this.getSection.color.rgba }
-    },
-
-    getSectionColorHexadecimal() {
-      return { backgroundColor: this.getSection.color.hexadecimal }
-    },
-
-    getSectionFormData() {
-      return this.$store.getters['board/getSectionFormData']
-    },
-
-    getChooseProjectInNavbar() {
-      return this.$store.getters['projects/getChooseProjectInNavbar']
-    },
-
     getSection() {
       const sectionAux = {
         id: '',
@@ -132,6 +116,22 @@ export default {
       }
 
       return sectionAux
+    },
+
+    getSectionColorRgba() {
+      return { backgroundColor: this.getSection.color.rgba }
+    },
+
+    getSectionColorHexadecimal() {
+      return { backgroundColor: this.getSection.color.hexadecimal }
+    },
+
+    getSectionFormData() {
+      return this.$store.getters['board/getSectionFormData']
+    },
+
+    getChooseProjectInNavbar() {
+      return this.$store.getters['projects/getChooseProjectInNavbar']
     },
   },
 

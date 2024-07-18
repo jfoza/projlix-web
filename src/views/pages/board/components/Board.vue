@@ -172,11 +172,11 @@ export default {
       if (moved) {
         const { element, newIndex } = moved
 
-        const sectionOrder = (newIndex + 1)
+        const newOrder = (newIndex + 1)
 
-        await reorderSection(element.id, { sectionOrder })
+        await reorderSection(element.id, { newOrder })
           .then(response => {
-            if (response.status === 200) {
+            if (response.status === 204) {
               this.$store.dispatch(
                 'board/findAll',
                 { projectUniqueName: this.getProjectUniqueName },

@@ -47,27 +47,15 @@
                 />
               </div>
             </template>
-            <b-dropdown-item>
+            <b-dropdown-item @click="handleGetProject()">
               <div class="dropdown-item-area">
                 <feather-icon
                   icon="SettingsIcon"
                   class="mr-1"
-                  size="24"
+                  size="20"
                 />
 
                 <span>Configurações do projeto</span>
-              </div>
-            </b-dropdown-item>
-
-            <b-dropdown-item>
-              <div class="dropdown-item-area">
-                <feather-icon
-                  icon="SmileIcon"
-                  class="mr-1"
-                  size="24"
-                />
-
-                <span>Alterar ícone</span>
               </div>
             </b-dropdown-item>
           </b-dropdown>
@@ -123,6 +111,16 @@ export default {
       return this.$store.getters['projects/getChooseProjectInNavbar']
     },
   },
+
+  methods: {
+    async handleGetProject() {
+      await this.$router.push({ name: 'projects-list' })
+
+      this.$store.commit('projects/setShowModalFormUpdate', true)
+
+      await this.$store.dispatch('projects/findOne', this.getChooseProject.id)
+    },
+  },
 }
 </script>
 
@@ -157,6 +155,6 @@ export default {
   }
 
   .dropdown-item-area span {
-    font-size: 15px;
+    font-size: 13px;
   }
 </style>
