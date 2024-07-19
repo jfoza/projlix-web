@@ -38,6 +38,13 @@ export default {
     'b-tooltip': VBTooltip,
   },
 
+  props: {
+    selectedColor: {
+      type: Object,
+      default: () => null,
+    },
+  },
+
   data() {
     return {}
   },
@@ -47,12 +54,26 @@ export default {
       return this.$store.getters['colors/getColors']
     },
 
-    getSelectedColor() {
-      return this.$store.getters['colors/getSelectedColor']
-    },
-
     getLoading() {
       return this.$store.getters['colors/getLoading']
+    },
+
+    getSelectedColor() {
+      const selectedColorAux = {
+        id: '',
+        hexadecimal: '',
+        rgba: '',
+        description: '',
+      }
+
+      if (this.selectedColor) {
+        selectedColorAux.id = this.selectedColor.id
+        selectedColorAux.hexadecimal = this.selectedColor.hexadecimal
+        selectedColorAux.rgba = this.selectedColor.rgba
+        selectedColorAux.description = this.selectedColor.description
+      }
+
+      return selectedColorAux
     },
   },
 
@@ -68,13 +89,13 @@ export default {
         const defaultColor = this.getColors[0]
 
         if (defaultColor) {
-          this.$store.commit('colors/setSelectedColor', defaultColor)
+          this.$store.commit('board/setSectionColor', defaultColor)
         }
       }
     },
 
     selectColor(color) {
-      this.$store.commit('colors/setSelectedColor', color)
+      this.$emit('update:selectedColor', color)
     },
   },
 }

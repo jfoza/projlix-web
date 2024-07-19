@@ -2,42 +2,31 @@
   <div class="update-project-form ml-1">
     <label class="mb-2">Escolha o ícone do projeto.</label>
 
-    <div
-      class="icons"
-    >
-      <div
-        v-for="(icon, index) in icons"
-        :key="index"
-        v-b-tooltip.hover.top="icon"
-        class="icon"
-        :class="{ selected: icon.id === getFormData.icon.id && getFormData.icon.id !== '' }"
-        @click="selectIcon(icon)"
-      >
-        <div class="icon-wrapper">
-          <feather-icon
-            :icon="icon.name"
-          />
-        </div>
-      </div>
-    </div>
+    <FeatherIcons
+      :selected-icon="selectedIcon"
+      @update:selectedIcon="selectIcon"
+    />
   </div>
 </template>
 
 <script>
 import { VBTooltip } from 'bootstrap-vue'
-import { getAllIcons } from '@/views/pages/icons/api'
 import { updateProjectIcon } from '@/views/pages/projects/api'
 import { toastWarning } from '@/libs/alerts/toast'
 import { messages } from '@core/utils/validations/messages'
+import FeatherIcons from '@/views/pages/icons/components/FeatherIcons.vue'
+import { mapState } from 'vuex'
 
 export default {
+  components: { FeatherIcons },
+
   directives: {
     'b-tooltip': VBTooltip,
   },
 
   data() {
     return {
-      icons: [],
+      selectedIcon: null,
     }
   },
 
@@ -49,21 +38,22 @@ export default {
     getProjects() {
       return this.$store.getters['projects/getProjects']
     },
+
+    ...mapState({
+      getSelectedIcon: state => state.projects.formData.icon,
+    }),
   },
 
-  mounted() {
-    this.findAllIcons()
+  watch: {
+    getSelectedIcon: {
+      immediate: true,
+      handler(newValue) {
+        this.selectedIcon = newValue
+      },
+    },
   },
 
   methods: {
-    findAllIcons() {
-      getAllIcons().then(response => {
-        if (response.status === 200) {
-          this.icons = response.data
-        }
-      })
-    },
-
     async selectIcon(icon) {
       this.$store.commit('projects/setProjectIcon', icon)
 
@@ -77,7 +67,7 @@ export default {
 
       await updateProjectIcon(id, formData)
         .then(() => {
-          let projects = this.getProjects
+          const projects = this.getProjects
 
           projects.forEach(project => {
             if (project.id === this.getFormData.id) {
@@ -108,49 +98,3 @@ export default {
   },
 }
 </script>
-
-<style lang="scss">
-@import '@/assets/scss/variables/variables';
-
-.icons {
-  display: flex;
-  flex-wrap: wrap;
-}
-
-.icons .icon {
-  width: 44px;
-  height: 44px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin: 4px;
-  background-color: $bg-300;
-  border-radius: 0.368rem;
-  cursor: pointer;
-}
-
-.selected {
-  border: 2px solid $accent-300;
-}
-
-.dark-layout .card {
-  box-shadow: none;
-}
-
-.icon-wrapper .feather {
-  height: 24px;
-  width: 24px;
-}
-
-@media (max-width: 992px) {
-  .icons .icon {
-    width: 30px;
-    height: 30px;
-  }
-
-  .icon-wrapper .feather {
-    height: 18px;
-    width: 18px;
-  }
-}
-</style>

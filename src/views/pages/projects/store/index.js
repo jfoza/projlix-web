@@ -21,41 +21,9 @@ const state = {
     teamUsers: [],
     tags: [],
   },
-
-  chooseProjectInNavbar: {
-    id: '',
-    name: '',
-    uniqueName: '',
-    description: '',
-    icon: { id: '', name: '' },
-    teamUsers: [],
-    tags: [],
-  },
 }
 
 const mutations = {
-  setChooseProjectInNavbar(state, project) {
-    const {
-      id,
-      name,
-      unique_name,
-      description,
-      icon,
-      team_users,
-      tags,
-    } = project
-
-    state.chooseProjectInNavbar = {
-      id,
-      name,
-      uniqueName: unique_name,
-      description,
-      icon,
-      teamUsers: team_users,
-      tags,
-    }
-  },
-
   setFormData(state, project) {
     const {
       id,
@@ -102,18 +70,6 @@ const mutations = {
     state.formData.icon = icon
   },
 
-  clearProjectInNavbar(state) {
-    state.formData = {
-      id: '',
-      name: '',
-      uniqueName: '',
-      description: '',
-      icon: { id: '', name: '' },
-      teamUsers: [],
-      tags: [],
-    }
-  },
-
   clearFormData(state) {
     state.formData = {
       id: '',
@@ -153,7 +109,6 @@ const actions = {
 
 const getters = {
   getProjects: state => state.projects,
-  getChooseProjectInNavbar: state => state.chooseProjectInNavbar,
   getFormData: state => state.formData,
   getProjectName: state => state.formData.name,
   getLoading: state => state.loading,

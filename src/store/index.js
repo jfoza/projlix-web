@@ -5,6 +5,7 @@ import Vuex from 'vuex'
 // Modules
 import createPersistedState from 'vuex-persistedstate'
 
+import navbar from '@/views/pages/navbar/store'
 import sessions from '@/views/pages/authentication/store'
 import adminUsers from '@/views/pages/admin-users/store'
 import teamUsers from '@/views/pages/team-users/store'
@@ -23,6 +24,7 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   modules: {
+    navbar,
     sessions,
     app,
     appConfig,
@@ -39,6 +41,7 @@ export default new Vuex.Store({
   plugins: [
     createPersistedState({
       paths: [
+        'navbar',
         'sessions',
         'adminUsers',
         'teamUsers',

@@ -131,7 +131,7 @@ export default {
     },
 
     getChooseProjectInNavbar() {
-      return this.$store.getters['projects/getChooseProjectInNavbar']
+      return this.$store.getters['navbar/getChooseProjectInNavbar']
     },
   },
 
@@ -142,9 +142,6 @@ export default {
       this.$store.commit('board/setShowSectionModalForm', true)
 
       await this.$store.dispatch('board/findOne', this.getSection.id)
-
-      this.$store.commit('icons/setSelectedIcon', this.getSectionFormData.icon)
-      this.$store.commit('colors/setSelectedColor', this.getSectionFormData.color)
     },
 
     handleOpenModalRemoveSection() {

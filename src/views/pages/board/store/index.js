@@ -12,9 +12,11 @@ const state = {
   sections: [],
 
   sectionFormData: {
-    project: null,
-    color: null,
-    icon: null,
+    project: { id: '' },
+    color: {
+      id: '', hexadecimal: '', rgba: '', description: '',
+    },
+    icon: { id: '', name: '' },
     name: '',
     id: '',
   },
@@ -39,6 +41,14 @@ const mutations = {
     }
   },
 
+  setSectionIcon(state, icon) {
+    state.sectionFormData.icon = icon
+  },
+
+  setSectionColor(state, color) {
+    state.sectionFormData.color = color
+  },
+
   setLoadingBoardPage(state, loadingBoardPage) {
     state.loadingBoardPage = loadingBoardPage
   },
@@ -49,9 +59,11 @@ const mutations = {
 
   clear(state) {
     state.sectionFormData = {
-      project: null,
-      color: null,
-      icon: null,
+      project: { id: '' },
+      color: {
+        id: '', hexadecimal: '', rgba: '', description: '',
+      },
+      icon: { id: '', name: '' },
       name: '',
       id: '',
     }

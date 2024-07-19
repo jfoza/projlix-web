@@ -28,7 +28,7 @@ export default {
   tagStatus: id => `/tags/status/${id}`,
 
   sections: '/sections',
-  sectionId: id => `/sections/id/${id}`,
+  sectionId: id => `/sections/${id}`,
   reorderSection: id => `/sections/reorder/${id}`,
 
   icons: '/icons',

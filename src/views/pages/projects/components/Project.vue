@@ -198,7 +198,7 @@ export default {
     },
 
     handleRedirectProjectBoard() {
-      this.$store.commit('projects/setChooseProjectInNavbar', this.getProjectInfo)
+      this.$store.commit('navbar/setChooseProjectInNavbar', this.getProjectInfo)
 
       this.$router.push({ path: `projetos/${this.getProjectInfo.uniqueName}/tarefas` })
     },

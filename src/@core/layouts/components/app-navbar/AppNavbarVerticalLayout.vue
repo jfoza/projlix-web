@@ -108,7 +108,7 @@ export default {
     },
 
     getChooseProject() {
-      return this.$store.getters['projects/getChooseProjectInNavbar']
+      return this.$store.getters['navbar/getChooseProjectInNavbar']
     },
   },
 

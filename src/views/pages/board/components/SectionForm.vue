@@ -1,95 +1,99 @@
 <template>
-  <validation-observer
-    ref="formItems"
-  >
-    <div
-      v-if="loading"
-      class="spinner-area"
+  <div class="p-2">
+    <validation-observer
+      ref="formItems"
     >
-      <b-spinner
-        variant="custom"
-        label="Loading..."
-      />
-    </div>
+      <div
+        v-if="loading"
+        class="spinner-area"
+      >
+        <b-spinner
+          variant="custom"
+          label="Loading..."
+        />
+      </div>
 
-    <b-form
-      v-if="!loading"
-    >
-      <b-row>
-        <b-col
-          cols="12"
-          class="mb-2"
-        >
-          <b-form-group
-            label="Nome"
-            label-for="name"
+      <b-form
+        v-if="!loading"
+      >
+        <b-row>
+          <b-col
+            cols="12"
+            class="mb-2"
           >
-            <validation-provider
-              #default="{ errors }"
-              name="Nome"
-              rules="required"
+            <b-form-group
+              label="Nome"
+              label-for="name"
             >
-              <b-form-input
-                id="name"
-                v-model="getSectionFormData.name"
-                :state="errors.length > 0 ? false : null"
-                autocomplete="off"
-                placeholder="Nome da seção"
+              <validation-provider
+                #default="{ errors }"
+                name="Nome"
+                rules="required"
+              >
+                <b-form-input
+                  id="name"
+                  v-model="getSectionFormData.name"
+                  :state="errors.length > 0 ? false : null"
+                  autocomplete="off"
+                  placeholder="Nome da seção"
+                />
+
+                <small class="text-danger">{{ errors[0] }}</small>
+              </validation-provider>
+            </b-form-group>
+          </b-col>
+
+          <b-col
+            cols="12"
+            class="mb-2"
+          >
+            <b-form-group
+              label="Ícone de seção"
+              label-for="icon"
+            >
+              <FeatherIcons
+                :scroll="true"
+                :selected-icon="selectedIcon"
+                @update:selectedIcon="selectIcon"
               />
+            </b-form-group>
+          </b-col>
 
-              <small class="text-danger">{{ errors[0] }}</small>
-            </validation-provider>
-          </b-form-group>
-        </b-col>
-
-        <b-col
-          cols="12"
-          class="mb-2"
-        >
-          <b-form-group
-            label="Ícone de seção"
-            label-for="icon"
+          <b-col
+            cols="12"
           >
-            <FeatherIcons
-              ref="featherIcons"
-              height="198px"
-            />
-          </b-form-group>
-        </b-col>
+            <b-form-group
+              label="Cor de seção"
+              label-for="color"
+            >
+              <Colors
+                :selected-color="selectedColor"
+                @update:selectedColor="selectColor"
+              />
+            </b-form-group>
+          </b-col>
 
-        <b-col
-          cols="12"
-        >
-          <b-form-group
-            label="Cor de seção"
-            label-for="color"
+          <b-col
+            cols="12"
+            class="mt-3 text-right"
           >
-            <Colors
-              ref="colors"
-            />
-          </b-form-group>
-        </b-col>
+            <ButtonOutlineForm
+              class-name="mr-1"
+              @action="cancel"
+            >
+              Cancelar
+            </ButtonOutlineForm>
 
-        <b-col
-          cols="12"
-          class="mt-3 text-right"
-        >
-          <ButtonOutlineForm
-            class-name="mr-1"
-            @action="cancel"
-          >
-            Cancelar
-          </ButtonOutlineForm>
-
-          <ButtonForm
-            @action="formSubmit"
-          >
-            Salvar
-          </ButtonForm>
-        </b-col>
-      </b-row>
-    </b-form>
-  </validation-observer>
+            <ButtonForm
+              @action="formSubmit"
+            >
+              Salvar
+            </ButtonForm>
+          </b-col>
+        </b-row>
+      </b-form>
+    </validation-observer>
+  </div>
 </template>
 
 <script>
@@ -113,6 +117,7 @@ import { toastSuccess, toastWarning } from '@/libs/alerts/toast'
 import FeatherIcons from '@/views/pages/icons/components/FeatherIcons.vue'
 import Colors from '@/views/pages/colors/components/Colors.vue'
 import { createSection, updateSection } from '@/views/pages/sections/api'
+import { mapState } from 'vuex'
 
 export default {
   components: {
@@ -135,6 +140,9 @@ export default {
       required,
 
       loading: false,
+
+      selectedIcon: null,
+      selectedColor: null,
     }
   },
 
@@ -144,19 +152,32 @@ export default {
     },
 
     getChooseProjectInNavbar() {
-      return this.$store.getters['projects/getChooseProjectInNavbar']
+      return this.$store.getters['navbar/getChooseProjectInNavbar']
     },
 
     getMode() {
       return this.$store.getters['board/getFormMode']
     },
 
-    getSelectedIcon() {
-      return this.$store.getters['icons/getSelectedIcon']
+    ...mapState({
+      getSelectedIcon: state => state.board.sectionFormData.icon,
+      getSelectedColor: state => state.board.sectionFormData.color,
+    }),
+  },
+
+  watch: {
+    getSelectedIcon: {
+      immediate: true,
+      handler(newValue) {
+        this.selectedIcon = newValue
+      },
     },
 
-    getSelectedColor() {
-      return this.$store.getters['colors/getSelectedColor']
+    getSelectedColor: {
+      immediate: true,
+      handler(newValue) {
+        this.selectedColor = newValue
+      },
     },
   },
 
@@ -246,6 +267,14 @@ export default {
       }
 
       return toastWarning(messages.impossible)
+    },
+
+    selectIcon(icon) {
+      this.$store.commit('board/setSectionIcon', icon)
+    },
+
+    selectColor(color) {
+      this.$store.commit('board/setSectionColor', color)
     },
 
     cancel() {

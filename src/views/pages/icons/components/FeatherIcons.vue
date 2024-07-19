@@ -1,52 +1,31 @@
 <template>
-  <div>
+  <div
+    class="icons"
+    :style="getStyles"
+  >
     <div
-      v-if="getLoading"
-      class="spinner-area"
+      v-for="icon in getIcons"
+      :key="icon.id"
+      v-b-tooltip.hover.top="icon.name"
+      class="icon"
+      :class="{ 'selected': getSelectedIcon.id === icon.id }"
+      @click="handleSelectSectionIcon(icon)"
     >
-      <b-spinner />
-    </div>
-
-    <section
-      v-if="!getLoading"
-      id="feather-icons"
-      :style="getStyles"
-      class="feather-icons"
-    >
-      <div
-        id="icons-container"
-        class="feather-icons-container"
-      >
-        <b-card
-          v-for="icon in getIcons"
-          :key="icon.id"
-          v-b-tooltip.hover.top="icon.name"
-          :class="{ 'selected-card': getSelectedIcon.id === icon.id }"
-          @click="handleSelectSectionIcon(icon)"
-        >
-          <div class="icon-wrapper">
-            <feather-icon
-              :icon="icon.name"
-              size="24"
-            />
-          </div>
-        </b-card>
+      <div class="icon-wrapper">
+        <feather-icon
+          :icon="icon.name"
+        />
       </div>
-    </section>
+    </div>
   </div>
 </template>
 
 <script>
-import {
-  BCard,
-  BSpinner,
-  VBTooltip,
-} from 'bootstrap-vue'
+import { VBTooltip } from 'bootstrap-vue'
 
 export default {
   components: {
-    BCard,
-    BSpinner,
+
   },
 
   directives: {
@@ -58,29 +37,49 @@ export default {
       type: String,
       default: '100%',
     },
-  },
 
-  data() {
-    return {}
+    selectedIcon: {
+      type: Object,
+      default: () => null,
+    },
+
+    scroll: {
+      type: Boolean,
+      default: false,
+    },
   },
 
   computed: {
-    getStyles() {
-      return {
-        height: this.height,
-      }
-    },
-
     getIcons() {
       return this.$store.getters['icons/getIcons']
     },
 
     getSelectedIcon() {
-      return this.$store.getters['icons/getSelectedIcon']
+      const selectedIconAux = {
+        id: '',
+        name: '',
+      }
+
+      if (this.selectedIcon) {
+        selectedIconAux.id = this.selectedIcon.id
+        selectedIconAux.name = this.selectedIcon.name
+      }
+
+      return selectedIconAux
     },
 
-    getLoading() {
-      return this.$store.getters['icons/getLoading']
+    getStyles() {
+      const styles = {}
+      let scroll = {}
+
+      if (this.scroll) {
+        scroll = {
+          overflowY: 'scroll',
+          overflowX: 'hidden',
+        }
+      }
+
+      return { ...scroll, ...styles }
     },
   },
 
@@ -91,58 +90,58 @@ export default {
   methods: {
     async index() {
       await this.$store.dispatch('icons/findAll')
-
-      if (!this.getSelectedIcon.id) {
-        const defaultIcon = this.getIcons.find(icon => icon.name === 'ActivityIcon')
-
-        if (defaultIcon) {
-          this.$store.commit('icons/setSelectedIcon', defaultIcon)
-        }
-      }
     },
 
     handleSelectSectionIcon(icon) {
-      this.$store.commit('icons/setSelectedIcon', icon)
+      this.$emit('update:selectedIcon', icon)
     },
   },
 }
 </script>
 
 <style scoped lang="scss">
-  @import '@/assets/scss/variables/variables';
+@import '@/assets/scss/variables/variables';
 
-  .card {
-    margin-bottom: 0;
-    cursor: pointer;
-    border: 2px solid transparent
+.icons {
+  display: flex;
+  flex-wrap: wrap;
+  max-height: 200px;
+}
+
+.icons .icon {
+  width: 44px;
+  height: 44px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 4px;
+  background-color: $bg-300;
+  border-radius: 0.368rem;
+  cursor: pointer;
+}
+
+.selected {
+  border: 2px solid $accent-300;
+}
+
+.dark-layout .card {
+  box-shadow: none;
+}
+
+.icon-wrapper .feather {
+  height: 24px;
+  width: 24px;
+}
+
+@media (max-width: 992px) {
+  .icons .icon {
+    width: 30px;
+    height: 30px;
   }
 
-  .selected-card {
-    border: 2px solid $accent-300 !important;
-    color: $accent-300 !important;
+  .icon-wrapper .feather {
+    height: 18px;
+    width: 18px;
   }
-
-  .card-body {
-    padding: 10.34px;
-  }
-
-  .dark-layout .card {
-    box-shadow: none;
-  }
-
-  .feather-icons {
-    overflow: auto;
-    scrollbar-width: none;
-    -ms-overflow-style: none;
-  }
-
-  .container::-webkit-scrollbar {
-    display: none;
-  }
-
-  .feather-icons-container {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
-  }
+}
 </style>
