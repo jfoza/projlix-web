@@ -21,13 +21,44 @@
               v-for="section in $store.state.board.sections"
               :key="section.section_order"
             >
-              <SectionHeader
-                :section="section"
-              />
+              <SectionHeader :section="section" />
 
-              <SectionContent
-                :section="section"
-              />
+              <div class="kanban-column">
+                <draggable
+                  v-model="section.cards"
+                  :group="'cards'"
+                  class="draggable-list"
+                  :animation="200"
+                  ghost-class="ghost"
+                  :empty-insert-threshold="1"
+                  @change="onCardChange($event)"
+                >
+                  <transition-group
+                    name="list"
+                    tag="div"
+                  >
+                    <div
+                      v-for="card in section.cards"
+                      :key="card.id"
+                      class="kanban-card"
+                    >
+                      {{ card.description }}
+                    </div>
+                    <div
+                      v-if="section.cards.length === 0"
+                      key="empty"
+                      class="cards-no-content"
+                    >
+                      <feather-icon
+                        icon="CoffeeIcon"
+                        size="64"
+                        class="mb-2"
+                      />
+                      <h4>Nenhuma tarefa</h4>
+                    </div>
+                  </transition-group>
+                </draggable>
+              </div>
             </div>
           </draggable>
 
@@ -52,7 +83,6 @@
 import draggable from 'vuedraggable'
 import { BModal, BOverlay } from 'bootstrap-vue'
 import SectionHeader from '@/views/pages/board/components/SectionHeader.vue'
-import SectionContent from '@/views/pages/board/components/SectionContent.vue'
 import SectionInsert from '@/views/pages/board/components/SectionInsert.vue'
 import { mapState } from 'vuex'
 import SectionForm from '@/views/pages/board/components/SectionForm.vue'
@@ -65,7 +95,6 @@ export default {
     SectionForm,
     BModal,
     SectionInsert,
-    SectionContent,
     SectionHeader,
     BOverlay,
     draggable,
@@ -81,34 +110,6 @@ export default {
   data() {
     return {
       viewPage: false,
-
-      dragGroup: 'tasks',
-
-      columns: [
-        {
-          id: 1,
-          title: 'Backlog',
-          tasks: [
-            { id: 1, description: 'Tarefa 1' },
-            { id: 2, description: 'Tarefa 2' },
-          ],
-        },
-        {
-          id: 2,
-          title: 'Em desenvolvimento',
-          tasks: [],
-        },
-        {
-          id: 3,
-          title: 'Auditoria',
-          tasks: [],
-        },
-        {
-          id: 4,
-          title: 'Concluídas',
-          tasks: [],
-        },
-      ],
     }
   },
 
@@ -191,6 +192,26 @@ export default {
       }
 
       this.$store.commit('board/setLoadingBoardPage', true)
+    },
+
+    async onCardChange(event) {
+      const { added, moved } = event
+
+      if (added) {
+        console.log('Added')
+      }
+
+      if (moved) {
+        console.log('Moved')
+      }
+
+      return false
+
+      if (added || moved) {
+        const card = added ? added.element : moved.element
+
+        const section = this.$store.state.board.sections.find(section => section.cards.some(item => card.id === item.id))
+      }
     },
 
     redirectToMainPage() {
