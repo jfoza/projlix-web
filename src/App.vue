@@ -90,22 +90,17 @@ export default {
   },
 
   methods: {
-    startSessionTime() {
+    async startSessionTime() {
       startCount()
 
-      this.$store.watch(this.$store.getters['sessions/getCount'], c => {
-        this.$store.dispatch('sessions/setCount', c)
+      this.$store.watch(this.$store.getters['sessions/getCount'], async c => {
+        await this.$store.dispatch('sessions/setCount', c)
 
         if (c === 0) {
           this.$store.commit('storeModuleCheckout/clearAll')
 
-          logoutUser()
-            .then(() => {
-              this.$router.push({ name: 'auth-login' })
-            })
-            .catch(() => {
-              this.$router.push({ name: 'auth-login' })
-            })
+          await this.$store.dispatch('sessions/logout')
+          await this.$router.push({ name: 'auth-login' })
         }
       })
     },

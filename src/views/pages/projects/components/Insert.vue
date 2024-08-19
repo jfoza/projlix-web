@@ -171,7 +171,7 @@ export default {
 
       await createProject(formData)
         .then(response => {
-          if (response.status === 200) {
+          if (response.status === 201) {
             this.clear()
             this.findAll()
             toastSuccess(messages.successSave)
@@ -188,7 +188,7 @@ export default {
       const errors = response.status === 400 || response.status === 404
 
       if (errors) {
-        return toastWarning(response.data.error)
+        return toastWarning(response.data.message)
       }
 
       return toastWarning(messages.impossible)

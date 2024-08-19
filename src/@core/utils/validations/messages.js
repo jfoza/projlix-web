@@ -13,7 +13,7 @@ export const messages = {
   successSave: 'Dados salvos com sucesso',
   errorUploadImage: 'Não foi possível realizar o upload da imagem para este registro, caso o erro persista, entre em contato com o suporte.',
   successDelete: 'Registro excluído com sucesso.',
-  impossible: 'Não foi possível realizar a sua solicitação no momento.</br> Caso o erro persista, contate o suporte.',
+  impossible: 'Não foi possível realizar a sua solicitação no momento. Caso o erro persista, contate o suporte.',
   error: 'Não foi possível realizar a sua solicitação, contate o suporte',
   invalidTokenForgotPassword: 'Token de verificação inválido, por favor solicite uma nova troca de senha!',
   tokenForgotPasswordNotFound: 'Token de verificação não encontrado!',

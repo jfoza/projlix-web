@@ -33,30 +33,30 @@
                   :empty-insert-threshold="1"
                   @change="onCardChange($event)"
                 >
-                  <transition-group
-                    name="list"
-                    tag="div"
-                  >
-                    <div
-                      v-for="card in section.cards"
-                      :key="card.id"
-                      class="kanban-card"
-                    >
-                      {{ card.description }}
-                    </div>
-                    <div
-                      v-if="section.cards.length === 0"
-                      key="empty"
-                      class="cards-no-content"
-                    >
-                      <feather-icon
-                        icon="CoffeeIcon"
-                        size="64"
-                        class="mb-2"
-                      />
-                      <h4>Nenhuma tarefa</h4>
-                    </div>
-                  </transition-group>
+<!--                  <transition-group-->
+<!--                    name="list"-->
+<!--                    tag="div"-->
+<!--                  >-->
+<!--                    <div-->
+<!--                      v-for="card in section.cards"-->
+<!--                      :key="card.id"-->
+<!--                      class="kanban-card"-->
+<!--                    >-->
+<!--                      {{ card.description }}-->
+<!--                    </div>-->
+<!--                    <div-->
+<!--                      v-if="section.cards.length === 0"-->
+<!--                      key="empty"-->
+<!--                      class="cards-no-content"-->
+<!--                    >-->
+<!--                      <feather-icon-->
+<!--                        icon="CoffeeIcon"-->
+<!--                        size="64"-->
+<!--                        class="mb-2"-->
+<!--                      />-->
+<!--                      <h4>Nenhuma tarefa</h4>-->
+<!--                    </div>-->
+<!--                  </transition-group>-->
                 </draggable>
               </div>
             </div>
@@ -187,11 +187,11 @@ export default {
           .catch(() => {
             toastWarning(messages.impossible)
 
-            this.$store.commit('board/setLoadingBoardPage', true)
+            this.$store.commit('board/setLoadingBoardPage', false)
           })
       }
 
-      this.$store.commit('board/setLoadingBoardPage', true)
+      this.$store.commit('board/setLoadingBoardPage', false)
     },
 
     async onCardChange(event) {

@@ -409,7 +409,7 @@ export default {
       const errors = response.status === 400 || response.status === 404
 
       if (errors) {
-        return toastWarning(response.data.error)
+        return toastWarning(response.data.message)
       }
 
       return toastWarning(messages.impossible)

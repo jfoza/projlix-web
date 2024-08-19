@@ -211,7 +211,7 @@
               </template>
 
               <template #cell(profile)="row">
-                <span>{{ row.item.profile[0].description }}</span>
+                <span>{{ row.item.profile.description }}</span>
               </template>
 
               <template #cell(active)="row">
@@ -323,7 +323,7 @@ export default {
       showTable: false,
 
       paginationData: {
-        currentPage: 0,
+        currentPage: 1,
         totalLines: 0,
         fromLine: 0,
         toLine: 0,

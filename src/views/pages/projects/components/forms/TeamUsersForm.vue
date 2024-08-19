@@ -25,17 +25,17 @@
         >
           <div class="team-user-info-left">
             <b-avatar
-              :text="teamUser.short_name"
+              :text="teamUser.user.short_name"
               size="36"
               variant="light-secondary"
               class="avatar-members mr-1"
             />
             <div class="d-flex flex-column">
               <h6 class="m-0">
-                {{ teamUser.name }}
+                {{ teamUser.user.name }}
               </h6>
               <small>
-                {{ teamUser.email }}
+                {{ teamUser.user.email }}
               </small>
             </div>
           </div>
@@ -50,13 +50,13 @@
             <small />
 
             <small>
-              {{ teamUser.profile }}
+              {{ teamUser.user.profile.description }}
             </small>
           </div>
 
           <div class="team-user-info-small">
             <small class="mt-1 mb-1">
-              {{ teamUser.profile }}
+              {{ teamUser.user.profile.description }}
             </small>
 
             <button
@@ -79,7 +79,7 @@ import { BRow, BCol, BAvatar } from 'bootstrap-vue'
 import ButtonIcon from '@/views/components/custom/buttons/ButtonIcon.vue'
 import {
   removeProjectTeamUser,
-  updateProjectTeamUser,
+  addProjectTeamUser,
 } from '@/views/pages/projects/api'
 import { toastWarning } from '@/libs/alerts/toast'
 import { messages } from '@core/utils/validations/messages'
@@ -118,18 +118,19 @@ export default {
   },
 
   methods: {
-    async handleAddTeamUser(teamUser) {
+    async handleAddTeamUser(user) {
       this.$store.commit('projects/setLoadingUpdate', true)
 
       const { id } = this.getFormData
 
       const formData = {
-        teamUserId: teamUser.team_user_id,
+        projectId: id,
+        teamUserId: user.team_user.id,
       }
 
-      await updateProjectTeamUser(id, formData)
+      await addProjectTeamUser(formData)
         .then(response => {
-          if (response.status === 204) {
+          if (response.status === 201) {
             this.clearAutoSuggest()
 
             this.findProjects()
@@ -160,11 +161,11 @@ export default {
 
       const { id } = this.getFormData
 
-      const formData = {
-        teamUserId: teamUser.team_user_id,
+      const params = {
+        teamUserId: teamUser.id,
       }
 
-      await removeProjectTeamUser(id, formData)
+      await removeProjectTeamUser(id, params)
         .then(response => {
           if (response.status === 204) {
             this.clearAutoSuggest()
@@ -190,7 +191,7 @@ export default {
       const errors = response.status === 400 || response.status === 404
 
       if (errors) {
-        return toastWarning(response.data.error)
+        return toastWarning(response.data.message)
       }
 
       return toastWarning(messages.impossible)

@@ -269,29 +269,29 @@
                 @context-changed="handleOrderTable"
               >
                 <template #cell(name)="row">
-                  <span>{{ row.item.user.name }}</span>
+                  <span>{{ row.item.name }}</span>
                 </template>
 
                 <template #cell(email)="row">
-                  <span>{{ row.item.user.email }}</span>
+                  <span>{{ row.item.email }}</span>
                 </template>
 
                 <template #cell(profile)="row">
-                  <span>{{ row.item.user.profile[0].description }}</span>
+                  <span>{{ row.item.profile.description }}</span>
                 </template>
 
                 <template #cell(projects)="row">
                   <span
-                    v-if="row.item.projects.length === 0"
+                    v-if="row.item.team_user.projects.length === 0"
                   >
                     -
                   </span>
 
                   <div
-                    v-if="row.item.projects.length > 0"
+                    v-if="row.item.team_user.projects.length > 0"
                   >
                     <span>
-                      {{ getProjectsName(row.item.projects) }}
+                      {{ getProjectsName(row.item.team_user.projects) }}
                     </span>
                   </div>
                 </template>
@@ -435,7 +435,7 @@ export default {
       showTable: false,
 
       paginationData: {
-        currentPage: 0,
+        currentPage: 1,
         totalLines: 0,
         fromLine: 0,
         toLine: 0,
@@ -483,7 +483,7 @@ export default {
           this.projects = response.data
         })
 
-      await getAllProfiles({ profileType: 'OPERATIONAL' })
+      await getAllProfiles({ type: 'OPERATIONAL' })
         .then(response => {
           this.profiles = response.data
         })
@@ -496,7 +496,7 @@ export default {
       this.table.empty = false
       this.loadingTable = true
 
-      getTeamUsers(this.setParams())
+      getTeamUsers(this.getParams())
         .then(response => {
           if (response.status === 200) {
             if (response.data.data.length > 0) {
@@ -528,12 +528,12 @@ export default {
         })
     },
 
-    handleConfirmUpdateStatus({ user, active }) {
+    handleConfirmUpdateStatus({ id, active }) {
       const { title1, title2, value } = messages.confirmUpdateUniqueTeamUserStatus
 
       warningMessageUpdateStatus(active ? title1 : title2, value)
         .then(() => {
-          this.handleUpdateTeamUserStatus(user.id)
+          this.handleUpdateTeamUserStatus(id)
         })
         .catch(() => {
           this.table.items = []
@@ -562,7 +562,7 @@ export default {
       const errors = response.status === 400 || response.status === 404
 
       if (errors) {
-        return toastWarning(response.data.error)
+        return toastWarning(response.data.message)
       }
 
       return toastWarning(messages.impossible)
@@ -600,11 +600,11 @@ export default {
       this.findAll()
     },
 
-    setParams() {
+    getParams() {
       let active = null
 
       if (this.search.active) {
-        active = this.search.active.boolValue ? 1 : 0
+        active = this.search.active.boolValue
       }
 
       return {
@@ -616,7 +616,7 @@ export default {
         email: this.search.email,
         active,
         profileId: this.search.profile ? this.search.profile.id : null,
-        projectId: this.search.project ? this.search.project.id : null,
+        projectsId: this.search.project ? [this.search.project.id] : null,
       }
     },
 

@@ -9,27 +9,31 @@ export default {
   noteId: id => `/notes/${id}`,
 
   projects: '/projects',
-  projectId: id => `/projects/id/${id}`,
+  projectId: id => `/projects/${id}`,
+
+  addProjectTag: '/projects/tags',
+  addProjectTeamUser: '/projects/team-users',
+
   projectUniqueName: uniqueName => `/projects/unique-name/${uniqueName}`,
-  projectInfo: id => `/projects/info/id/${id}`,
-  projectTag: id => `/projects/tag/id/${id}`,
-  projectTeamUser: id => `/projects/team-user/id/${id}`,
-  projectIcon: id => `/projects/icon/id/${id}`,
+  projectInfo: id => `/projects/${id}/info`,
+  projectTag: id => `/projects/${id}/tags`,
+  projectTeamUser: id => `/projects/${id}/team-users`,
+  projectIcon: id => `/projects/${id}/icons`,
 
   adminUsers: '/admin-users',
-  adminUserId: id => `/admin-users/id/${id}`,
+  adminUserId: id => `/admin-users/${id}`,
 
   teamUsers: '/team-users',
-  teamUserId: id => `/team-users/id/${id}`,
+  teamUserId: id => `/team-users/${id}`,
   teamUserStatus: id => `/team-users/status/${id}`,
 
   tags: '/tags',
-  tagId: id => `/tags/id/${id}`,
+  tagId: id => `/tags/${id}`,
   tagStatus: id => `/tags/status/${id}`,
 
   sections: '/sections',
   sectionId: id => `/sections/${id}`,
-  reorderSection: id => `/sections/reorder/${id}`,
+  reorderSection: id => `/sections/${id}/reorder`,
 
   icons: '/icons',
   colors: '/colors',

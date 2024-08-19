@@ -233,7 +233,7 @@ export default {
           this.projects = response.data
         })
 
-      await getAllProfiles({ profileType: 'OPERATIONAL' })
+      await getAllProfiles({ type: 'OPERATIONAL' })
         .then(response => {
           this.profiles = response.data
         })
@@ -275,8 +275,8 @@ export default {
       const formData = {
         name: this.getFormData.name,
         email: this.getFormData.email,
-        profileId: this.getFormData.profile.id,
-        projectsId: getArrayAttr(this.getFormData.projects, 'id'),
+        profile: this.getFormData.profile.id,
+        projects: getArrayAttr(this.getFormData.projects, 'id'),
       }
 
       await createTeamUser(formData)
@@ -302,8 +302,8 @@ export default {
       const formData = {
         name: this.getFormData.name,
         email: this.getFormData.email,
-        profileId: this.getFormData.profile.id,
-        projectsId: getArrayAttr(this.getFormData.projects, 'id'),
+        profile: this.getFormData.profile.id,
+        projects: getArrayAttr(this.getFormData.projects, 'id'),
       }
 
       await updateTeamUser(id, formData)
@@ -325,7 +325,7 @@ export default {
       const errors = response.status === 400 || response.status === 404
 
       if (errors) {
-        return toastWarning(response.data.error)
+        return toastWarning(response.data.message)
       }
 
       return toastWarning(messages.impossible)

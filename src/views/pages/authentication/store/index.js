@@ -57,16 +57,16 @@ const actions = {
   login({ commit }, auth) {
     let route = apiRoutes.login
 
-    if (auth.googleAuthToken) {
-      route = apiRoutes.googleLogin
-    }
+    // if (auth.googleAuthToken) {
+    //   route = apiRoutes.googleLogin
+    // }
 
     return new Promise((resolve, reject) => {
       api
         .post(route, auth)
         .then(response => {
           commit('DEFINE_LOGGED_USER', {
-            token: response.data.accessToken,
+            token: response.data.token,
             userData: response.data.user,
           })
 

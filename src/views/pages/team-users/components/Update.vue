@@ -68,7 +68,7 @@ export default {
   },
 
   created() {
-    if (!this.getChooseTeamUser.user.id) {
+    if (!this.getChooseTeamUser.id) {
       this.redirectToMainPage()
 
       return false
@@ -81,19 +81,22 @@ export default {
     async handleGetChooseTeamUser() {
       this.setLoading(true)
 
-      await getTeamUserId(this.getChooseTeamUser.user.id)
+      await getTeamUserId(this.getChooseTeamUser.id)
         .then(response => {
           const {
-            user,
-            projects,
+            id,
+            name,
+            email,
+            profile,
+            team_user,
           } = response.data
 
           this.$store.commit('teamUsers/setFormData', {
-            id: user.id,
-            name: user.name,
-            email: user.email,
-            profile: user.profile.length > 0 ? user.profile[0] : null,
-            projects,
+            id,
+            name,
+            email,
+            profile,
+            projects: team_user.projects,
           })
 
           this.linkItems[2].name = this.$store.getters['teamUsers/getFormData'].name

@@ -55,7 +55,7 @@
 import { BRow, BCol } from 'bootstrap-vue'
 import ButtonIcon from '@/views/components/custom/buttons/ButtonIcon.vue'
 import TagsAutoSuggest from '@/views/pages/projects/components/TagsAutoSuggest.vue'
-import { removeProjectTag, updateProjectTag } from '@/views/pages/projects/api'
+import { removeProjectTag, addProjectTag } from '@/views/pages/projects/api'
 import { toastWarning } from '@/libs/alerts/toast'
 import { messages } from '@core/utils/validations/messages'
 
@@ -92,12 +92,13 @@ export default {
       const { id } = this.getFormData
 
       const formData = {
+        projectId: id,
         tagId: tag.id,
       }
 
-      await updateProjectTag(id, formData)
+      await addProjectTag(formData)
         .then(response => {
-          if (response.status === 204) {
+          if (response.status === 201) {
             this.clearAutoSuggest()
           }
         })
@@ -138,7 +139,7 @@ export default {
       const errors = response.status === 400 || response.status === 404
 
       if (errors) {
-        return toastWarning(response.data.error)
+        return toastWarning(response.data.message)
       }
 
       return toastWarning(messages.impossible)

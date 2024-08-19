@@ -276,8 +276,8 @@ export default {
 
       await this.$store.dispatch('sessions/login', this.auth)
         .then(response => {
-          const { status } = response.request
-          const token = response.data.accessToken
+          const { status } = response
+          const { token } = response.data
           const userData = response.data.user
 
           if (status === 200 && token) {

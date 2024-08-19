@@ -157,6 +157,7 @@ export default {
 
       const formData = {
         name: this.getFormData.name,
+        color: '3a59b4c5-5b4d-4739-b4e7-508a07e5f7a5',
       }
 
       await createTag(formData)
@@ -181,6 +182,7 @@ export default {
 
       const formData = {
         name: this.getFormData.name,
+        color: '3a59b4c5-5b4d-4739-b4e7-508a07e5f7a5',
       }
 
       await updateTag(id, formData)
@@ -202,7 +204,7 @@ export default {
       const errors = response.status === 400 || response.status === 404
 
       if (errors) {
-        return toastWarning(response.data.error)
+        return toastWarning(response.data.message)
       }
 
       return toastWarning(messages.impossible)

@@ -81,7 +81,7 @@ import {
   BNavItemDropdown, BDropdownItem, BAvatar,
 } from 'bootstrap-vue'
 import { avatarText } from '@core/utils/filter'
-import { getUserData, logoutUser } from '@/auth/utils'
+import { getUserData } from '@/auth/utils'
 
 export default {
   components: {
@@ -104,14 +104,9 @@ export default {
       this.$router.replace({ name: 'update-user-form' })
     },
 
-    logout() {
-      logoutUser()
-        .then(() => {
-          this.$router.push({ name: 'auth-login' })
-        })
-        .catch(() => {
-          this.$router.push({ name: 'auth-login' })
-        })
+    async logout() {
+      await this.$store.dispatch('sessions/logout')
+      await this.$router.push({ name: 'auth-login' })
     },
   },
 }

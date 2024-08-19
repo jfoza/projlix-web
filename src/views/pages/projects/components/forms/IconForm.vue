@@ -1,11 +1,13 @@
 <template>
   <div class="update-project-form ml-1">
-    <label class="mb-2">Escolha o ícone do projeto.</label>
+    <div>
+      <label class="mb-2">Escolha o ícone do projeto.</label>
 
-    <FeatherIcons
-      :selected-icon="selectedIcon"
-      @update:selectedIcon="selectIcon"
-    />
+      <FeatherIcons
+        :selected-icon="selectedIcon"
+        @update:selectedIcon="selectIcon"
+      />
+    </div>
   </div>
 </template>
 
@@ -90,7 +92,7 @@ export default {
       const errors = response.status === 400 || response.status === 404
 
       if (errors) {
-        return toastWarning(response.data.error)
+        return toastWarning(response.data.message)
       }
 
       return toastWarning(messages.impossible)

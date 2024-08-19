@@ -304,7 +304,7 @@ export default {
       showTable: false,
 
       paginationData: {
-        currentPage: 0,
+        currentPage: 1,
         totalLines: 0,
         fromLine: 0,
         toLine: 0,
@@ -436,7 +436,7 @@ export default {
       const errors = response.status === 400 || response.status === 404
 
       if (errors) {
-        return toastWarning(response.data.error)
+        return toastWarning(response.data.message)
       }
 
       return toastWarning(messages.impossible)

@@ -279,7 +279,7 @@ export default {
         name: this.getFormData.name,
         email: this.getFormData.email,
         password: this.getFormData.password,
-        passwordConfirmation: this.getFormData.passwordConfirmation,
+        // passwordConfirmation: this.getFormData.passwordConfirmation,
       }
 
       await createUser(formData)
@@ -328,7 +328,7 @@ export default {
       const errors = response.status === 400 || response.status === 404
 
       if (errors) {
-        return toastWarning(response.data.error)
+        return toastWarning(response.data.message)
       }
 
       return toastWarning(messages.impossible)

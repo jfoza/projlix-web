@@ -45,31 +45,31 @@ export const createProject = formData => new Promise((resolve, reject) => {
     })
 })
 
+export const addProjectTag = formData => new Promise((resolve, reject) => {
+  axiosIns
+    .post(apiRoutes.addProjectTag, formData)
+    .then(response => {
+      resolve(response)
+    })
+    .catch(error => {
+      reject(error)
+    })
+})
+
+export const addProjectTeamUser = formData => new Promise((resolve, reject) => {
+  axiosIns
+    .post(apiRoutes.addProjectTeamUser, formData)
+    .then(response => {
+      resolve(response)
+    })
+    .catch(error => {
+      reject(error)
+    })
+})
+
 export const updateProjectInfo = (id, formData) => new Promise((resolve, reject) => {
   axiosIns
     .put(apiRoutes.projectInfo(id), formData)
-    .then(response => {
-      resolve(response)
-    })
-    .catch(error => {
-      reject(error)
-    })
-})
-
-export const updateProjectTag = (id, formData) => new Promise((resolve, reject) => {
-  axiosIns
-    .put(apiRoutes.projectTag(id), formData)
-    .then(response => {
-      resolve(response)
-    })
-    .catch(error => {
-      reject(error)
-    })
-})
-
-export const updateProjectTeamUser = (id, formData) => new Promise((resolve, reject) => {
-  axiosIns
-    .put(apiRoutes.projectTeamUser(id), formData)
     .then(response => {
       resolve(response)
     })
